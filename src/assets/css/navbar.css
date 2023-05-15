@@ -5,3 +5,8 @@
 #menu-toggle:checked + #menu {
   display: block;
 }
+
+#logo {
+  width: 100px;
+  height: 100px;
+}

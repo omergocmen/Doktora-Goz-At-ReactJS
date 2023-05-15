@@ -63,7 +63,7 @@ export default function Navbar() {
                     </div>
                     <div className="text-center">
                         {/* <p className="text-3xl">Educator</p>  */}
-                        <img src={logo} height="75" width="75"></img>
+                        <img id="logo" src={logo}></img>
                     </div>
                     <div className="order-2 md:order-3 flex items-center" id="nav-content">
                         {isAuthentication ? (
