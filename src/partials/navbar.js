@@ -7,6 +7,7 @@ import Cart from "../pages/cart/cart";
 import { Menu, Transition } from "@headlessui/react";
 import LinkButton from "../shared/components/linkButton";
 import BaseButton from "../shared/components/baseButton";
+import logo from "../logo.jpeg";
 
 export default function Navbar() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -61,7 +62,8 @@ export default function Navbar() {
                         </nav>
                     </div>
                     <div className="text-center">
-                        <p className="text-3xl">Educator</p>
+                        {/* <p className="text-3xl">Educator</p>  */}
+                        <img src={logo} height="75" width="75"></img>
                     </div>
                     <div className="order-2 md:order-3 flex items-center" id="nav-content">
                         {isAuthentication ? (
