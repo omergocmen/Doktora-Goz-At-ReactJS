@@ -10,6 +10,7 @@ import CourseDetail from "../pages/course/courseDetail";
 import CartDetail from "../pages/cart/cartDetail";
 import Order from "../pages/order/order";
 import JwtHelper from "../helpers/jwtHelper";
+import Meet from "../pages/meet";
 
 export default function HomeContainer() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -26,6 +27,7 @@ export default function HomeContainer() {
                     )}
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/contact" element={<Contact />} />
+                    <Route exact path="/meet/:id" element={<Meet />} />
                     <Route exact path="/aboutus" element={<AboutUs />} />
                     <Route exact path="/courses" element={<Courses />} />
                     <Route exact path="/courses/:id" element={<CourseDetail />} />
