@@ -158,7 +158,7 @@ export default function CartDetails() {
                                         >
                                             <div className="w-1/4">
                                                 <img
-                                                    src={"http://localhost:5012/photos/" + `${item.pictureUrl}`}
+                                                    src={"https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"}
                                                     alt={item.courseName}
                                                     className="w-[250px] h-auto object-center object-cover"
                                                 />

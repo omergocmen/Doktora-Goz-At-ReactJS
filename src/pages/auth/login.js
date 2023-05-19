@@ -17,18 +17,9 @@ export default function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        const body = new URLSearchParams(
-            {
-                "client_id": "WebMvcClientForUser",
-                "client_secret": "secret",
-                "grant_type": "password",
-                "userName": data.email,
-                "password": data.password
-            }
-        )
-        login(body).then(response => {
+        login(data).then(response => {
             toast.success("Giriş Başarılı");
-            localStorage.setItem("userToken",response.data.access_token);   
+            localStorage.setItem("userToken",response.data.data.token);   
             navigate("/home")
         }).catch(err => {
             toast.error("Giriş Yapılamadı İşlem Başarısız");

@@ -5,7 +5,7 @@ import baseAxios from "../helpers/baseAxios";
 
 
 export const login = (data) => {
-    return axios.post("http://localhost:5001/connect/token",data)
+    return axios.post("http://localhost:3000/api/authentication/login",data)
 };
 
 
