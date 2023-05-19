@@ -19,14 +19,6 @@ function App() {
     grant_type: "client_credentials"
   });
 
-  useEffect(() => {
-    axios
-      .post("http://localhost:5001/connect/token",params.toString())
-      .then((response) => {
-        localStorage.setItem("baseToken",response.data.access_token);
-      })
-  }, []);
-
 
 
   return (

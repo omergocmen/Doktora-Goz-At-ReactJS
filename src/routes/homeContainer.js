@@ -4,13 +4,12 @@ import Home from "../pages/home/home";
 import Navbar from "../partials/navbar";
 import Contact from "../pages/home/contact";
 import AboutUs from "../pages/home/aboutUs";
-import Courses from "../pages/course/courses";
-import CreateCourse from "../pages/course/create";
-import CourseDetail from "../pages/course/courseDetail";
 import CartDetail from "../pages/cart/cartDetail";
 import Order from "../pages/order/order";
 import JwtHelper from "../helpers/jwtHelper";
 import Meet from "../pages/meet";
+import DoctorDetail from "../pages/doctor/doctorDetail";
+import Doctors from "../pages/doctor/doctors";
 
 export default function HomeContainer() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -29,9 +28,8 @@ export default function HomeContainer() {
                     <Route exact path="/contact" element={<Contact />} />
                     <Route exact path="/meet/:id" element={<Meet />} />
                     <Route exact path="/aboutus" element={<AboutUs />} />
-                    <Route exact path="/courses" element={<Courses />} />
-                    <Route exact path="/courses/:id" element={<CourseDetail />} />
-                    <Route exact path="/courses/create" element={<CreateCourse />} />
+                    <Route exact path="/doctors" element={<Doctors />} />
+                    <Route exact path="/doctors/:id" element={<DoctorDetail />} />
                     <Route exact path="/*" element={<Navigate to="/" />} />
                 </Routes>
             </div>

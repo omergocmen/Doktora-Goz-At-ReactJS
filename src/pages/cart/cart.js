@@ -34,7 +34,7 @@ export default function Cart() {
                                         <div className="flex flex-column xl:flex-row xl:align-items-start p-3">
                                             <img
                                                 className="w-9 max-w-[115px] min-h-[100px]"
-                                                src={"http://localhost:5012/photos/" + `${item.pictureUrl}`}
+                                                src={"https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"}
                                                 alt={item.courseName}
                                             />
                                             <div className="text-left ml-4 flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">

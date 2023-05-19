@@ -18,7 +18,7 @@ export default function Order() {
     const representativeBodyTemplate = (rowData) => {
         return (
           <img
-            src={"http://localhost:5012/photos/" + rowData?.pictureUrl}
+            src={"https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"}
             alt={rowData.image}
             width="64px"
             className="shadow-4"

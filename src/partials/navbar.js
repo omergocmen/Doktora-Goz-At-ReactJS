@@ -44,8 +44,8 @@ export default function Navbar() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/home/courses">
-                                        Eğitim İçerikleri
+                                    <Link className="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/home/doctors">
+                                        Doktorlarımız
                                     </Link>
                                 </li>
                                 <li>
