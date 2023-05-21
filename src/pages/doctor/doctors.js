@@ -12,11 +12,9 @@ import { getAllDoctors } from "../../store/doctorSlice";
 
 export default function Doctors() {
     const [layout, setLayout] = useState("grid");
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const doctors = useSelector((state) => state.doctor.doctors);
-    console.log(doctors);
     useEffect(() => {
           dispatch(getAllDoctors());
     }, []);

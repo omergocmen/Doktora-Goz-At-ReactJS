@@ -9,8 +9,8 @@ export const login = (data) => {
 };
 
 
-export const registerUser = createAsyncThunk("account/register", async (data) => {
-    return baseAxios.post("account/register", data).then((response) => {
+export const registerDoctor = createAsyncThunk("authentication/register/doctor", async (data) => {
+    return baseAxios.post("authentication/register/doctor", data).then((response) => {
         toast.success("Kayıt Başarılı")
         return response.data.data;
     }).catch(err=>{

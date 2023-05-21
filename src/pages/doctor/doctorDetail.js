@@ -24,7 +24,7 @@ export default function DoctorDetail() {
     const doctor = useSelector(state=>state.doctor.doctor)
     useEffect(() => {
         dispatch(getDoctorById(params.id));
-    }, [JSON.stringify(doctor)]);
+    }, []);
     const saveBasketClick = () => {
     };
 
