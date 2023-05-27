@@ -6,7 +6,6 @@ import JwtHelper from "../helpers/jwtHelper";
 import Cart from "../pages/cart/cart";
 import { Menu, Transition } from "@headlessui/react";
 import LinkButton from "../shared/components/linkButton";
-import BaseButton from "../shared/components/baseButton";
 import logo from "../logo.jpeg";
 
 export default function Navbar() {
@@ -90,7 +89,7 @@ export default function Navbar() {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <Link
-                                                                to="/home/orders"
+                                                                to="/home/appointments/1"
                                                                 className={classNames(
                                                                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                                                                     "block px-4 py-2 text-sm"

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../store/orderSlice";
 import moment from "moment/moment";
 
-export default function Order() {
+export default function Appointment() {
     const dispatch = useDispatch();
     const orders = useSelector((state) => state.order.orders);
     const [expandedRows, setExpandedRows] = useState(null);

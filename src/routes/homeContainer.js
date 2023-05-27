@@ -5,7 +5,7 @@ import Navbar from "../partials/navbar";
 import Contact from "../pages/home/contact";
 import AboutUs from "../pages/home/aboutUs";
 import CartDetail from "../pages/cart/cartDetail";
-import Order from "../pages/order/order";
+import Appointments from "../pages/appointment/appointment";
 import JwtHelper from "../helpers/jwtHelper";
 import Meet from "../pages/meet/meet";
 import DoctorDetail from "../pages/doctor/doctorDetail";
@@ -21,7 +21,7 @@ export default function HomeContainer() {
                     {isAuthentication && (
                         <>
                             <Route exact path="/cartdetail" element={<CartDetail />} />
-                            <Route exact path="/orders" element={<Order />} />
+                            <Route exact path="/appointments/:id" element={<Appointments />} />
                         </>
                     )}
                     <Route exact path="/" element={<Home />} />
