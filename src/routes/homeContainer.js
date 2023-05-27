@@ -7,7 +7,7 @@ import AboutUs from "../pages/home/aboutUs";
 import CartDetail from "../pages/cart/cartDetail";
 import Order from "../pages/order/order";
 import JwtHelper from "../helpers/jwtHelper";
-import Meet from "../pages/meet";
+import Meet from "../pages/meet/meet";
 import DoctorDetail from "../pages/doctor/doctorDetail";
 import Doctors from "../pages/doctor/doctors";
 

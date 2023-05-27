@@ -6,8 +6,8 @@ const baseAxiosInterceptors = axios.create({
 
 baseAxiosInterceptors.interceptors.request.use(
     response => {
-        const token = localStorage.getItem("baseToken");
-        response.headers = { "Authorization": `Bearer ${token}` };
+        const token = localStorage.getItem("userToken");
+        response.headers = { "Authorization": `${token}` };
         return response;
     },
     error => {

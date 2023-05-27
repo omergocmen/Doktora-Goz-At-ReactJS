@@ -6,6 +6,8 @@ import basket from './basketSlice'
 import order from './orderSlice'
 import discount from './discountSlice'
 import doctor from "./doctorSlice"
+import meet from "./meetSlice"
+import appointment from "./appointmentSlice"
 
 
 const combinedReducers = combineReducers({
@@ -15,7 +17,9 @@ const combinedReducers = combineReducers({
     basket,
     order,
     discount,
-    doctor
+    doctor,
+    meet,
+    appointment
 });
 
 const store = configureStore({
