@@ -18,3 +18,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* common css */
+
+/* login page tab */
+.p-unselectable-text{
+  width: 50%;
+}
