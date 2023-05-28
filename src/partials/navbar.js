@@ -95,7 +95,20 @@ export default function Navbar() {
                                                                     "block px-4 py-2 text-sm"
                                                                 )}
                                                             >
-                                                                Siparişlerim
+                                                                Randevularım
+                                                            </Link>
+                                                        )}
+                                                    </Menu.Item>
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <Link
+                                                                to="/home/meets/1"
+                                                                className={classNames(
+                                                                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                                                    "block px-4 py-2 text-sm"
+                                                                )}
+                                                            >
+                                                                Görüşmelerim
                                                             </Link>
                                                         )}
                                                     </Menu.Item>
