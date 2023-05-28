@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BaseButton from "../../shared/components/baseButton";
 import { getAllMeeting, getMeetingById, getMeetingComments } from "../../store/meetSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,14 +6,25 @@ import { Link, useParams } from "react-router-dom";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import moment from "moment";
+import { Badge } from "primereact/badge";
 
 export default function Meets() {
     const dispatch = useDispatch();
     const meets = useSelector((state) => state.meet.meets);
+    const [newMeets, setNewMeets] = useState([]);
+    console.log(meets);
 
     useEffect(() => {
         dispatch(getAllMeeting());
-    }, []);
+        setNewMeets(
+            meets.map((item) => {
+                return {
+                    ...item,
+                    doctorName: item.appointment.doctor.user.name + " " + item.appointment.doctor.user.surname,
+                };
+            })
+        );
+    }, [JSON.stringify(meets)]);
 
     const jobs = [
         {
@@ -59,14 +70,24 @@ export default function Meets() {
             </>
         );
     };
-
-    const nameSurnameTamplate = (option) => {
-        return <>{option.appointment.doctor.user.name + " " + option.appointment.doctor.user.surname}</>;
+    const statebodytemplate = (option) => {
+        if (option.state === "APPROVED") {
+            return <Badge value="KABUL EDİLMİŞ" severity="success"></Badge>;
+        } else if (option.state === "CANCELLED") {
+            return <Badge value="İPTAL EDİLMİŞ" severity="danger"></Badge>;
+        } else if (option.state === "REJECTED") {
+            return <Badge value="REDDEDİLMİŞ" severity="danger"></Badge>;
+        } else if (option.state === "WAITING_FOR_APPROVAL") {
+            return <Badge value="KABUL BEKLİYOR" severity="info"></Badge>;
+        } else if (option.state === "PAYMENT_REQUIRED") {
+            return <Badge value="ÖDEME YAPILMASI GEREKİYOR" severity="warning"></Badge>;
+        }
     };
+
     return (
         <DataTable
             className="mt-20"
-            value={meets}
+            value={newMeets}
             paginator
             header={header}
             rows={10}
@@ -74,8 +95,8 @@ export default function Meets() {
             tableStyle={{ margin: "auto", minWidth: "50rem" }}
         >
             <Column field="id" header="Görüşme No" sortable />
-            <Column body={nameSurnameTamplate} header="Doktor" sortable />
-            <Column field="state" header="Görüşme Durumu" sortable />
+            <Column filter filterField="doctorName" field="doctorName" header="Doktor" sortable />
+            <Column filter filterField="state" body={statebodytemplate} field="state" header="Görüşme Durumu" sortable />
             <Column
                 field="appointment.date_time"
                 header="Randevu Tarihi"
