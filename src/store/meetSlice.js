@@ -37,11 +37,35 @@ export const complateMeet = createAsyncThunk("meeting/getmeetingbyid/complate", 
         });
 });
 
+export const sendComment = createAsyncThunk("comment/getmeetingbyid/create", async (id, data) => {
+    return baseAxios
+        .post("comment/"+id+"/create",data)
+        .then((response) => {
+            toast.success("Cevap eklendi.");
+            return response.data;
+        })
+        .catch((err) => {
+            toast.error(err.message);
+        });
+});
+
+export const getMeetingComments = createAsyncThunk("comment/getmeetingbyid", async (id) => {
+    return baseAxios
+        .get("comment/"+id)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => {
+            toast.error(err.message);
+        });
+});
+
 const meetSlice = createSlice({
     name: "meet",
     initialState: {
         meets: [],
-        meet: {}
+        meet: {},
+        getMeetingComments: []
     },
     extraReducers: {
         [getAllMeeting.fulfilled]: (state, action) => {
@@ -52,6 +76,11 @@ const meetSlice = createSlice({
         [getMeetingById.fulfilled]: (state, action) => {
             if (action.payload) {
                 state.meet = action.payload.data;
+            }
+        },
+        [getMeetingComments.fulfilled]: (state, action) => {
+            if (action.payload) {
+                state.getMeetingComments = action.payload.data;
             }
         },
     },

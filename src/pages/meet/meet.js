@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import BaseButton from '../../shared/components/baseButton';
-import {getAllMeeting, getMeetingById} from "../../store/meetSlice";
+import {getAllMeeting, getMeetingById, getMeetingComments} from "../../store/meetSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 
@@ -12,15 +12,17 @@ export default function Meet() {
 
     const meet = useSelector((state) => state.meet.meet);
     const meets = useSelector((state) => state.meet.meets);
+    const comments = useSelector((state) => state.meet.getMeetingComments)
 
     useEffect(() => {
         // dispatch(getAllMeeting());
         dispatch(getMeetingById(params.id));
+        dispatch(getMeetingComments(params.id));
     }, []);
      const users = meet.appointment;
      const doctor = users?.doctor.title + " " +  users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
-    console.log(meets);
+    console.log(comments);
     const jobs = [
         {
             title: "UI – Front End Dev",
