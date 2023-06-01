@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import baseAxios from "../helpers/baseAxios";
 
 export const getAllMeeting = createAsyncThunk("meeting/all", async () => {
@@ -29,7 +30,7 @@ export const complateMeet = createAsyncThunk("meeting/getmeetingbyid/complate", 
     return baseAxios
         .post("meeting/"+id+"/complate",data)
         .then((response) => {
-            toast.success("Teşhis raporu eklendi.");
+            toast.success(Messages.diagnosisreportadded);
             return response.data;
         })
         .catch((err) => {
@@ -41,7 +42,7 @@ export const sendComment = createAsyncThunk("comment/getmeetingbyid/create", asy
     return baseAxios
         .post("comment/"+id+"/create",data)
         .then((response) => {
-            toast.success("Cevap eklendi.");
+            toast.success(Messages.answeradded);
             return response.data;
         })
         .catch((err) => {

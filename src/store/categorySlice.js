@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import baseAxios from "../helpers/baseAxios";
 
 export const getAllCategories = createAsyncThunk("catalog/categories/getall", async () => {
@@ -17,7 +18,7 @@ export const addCategory = createAsyncThunk("catalog/categories/save", async (da
   return baseAxios
     .post("catalog/categories/save",data)
     .then((response) => {
-      toast.success("Başarıyla Eklendi");
+      toast.success(Messages.addsuccess);
       return response.data;
     })
     .catch((err) => {

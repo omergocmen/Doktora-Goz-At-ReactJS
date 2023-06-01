@@ -1,16 +1,17 @@
+import { TabPanel, TabView } from "primereact/tabview";
 import React, { useEffect } from "react";
-import loginimg from "../../assets/images/login.jpg";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import loginimg from "../../assets/images/login.jpg";
+import { Messages } from "../../constants/messages";
+import JwtHelper from "../../helpers/jwtHelper";
+import BaseButton from "../../shared/components/baseButton";
+import Heading from "../../shared/components/heading";
+import LabelFor from "../../shared/form/labelFor";
 import TextboxFor from "../../shared/form/textboxFor";
 import ValidationFor from "../../shared/form/validationFor";
-import LabelFor from "../../shared/form/labelFor";
 import { login } from "../../store/authSlice";
-import BaseButton from "../../shared/components/baseButton";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import JwtHelper from "../../helpers/jwtHelper";
-import { TabView, TabPanel } from "primereact/tabview";
-import Heading from "../../shared/components/heading";
 
 export default function Login() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -25,24 +26,24 @@ export default function Login() {
     const onSubmitPatient = (data) => {
         login(data)
             .then((response) => {
-                toast.success("Giriş Başarılı");
+                toast.success(Messages.userloginsuccess);
                 localStorage.setItem("userToken", response.data.data.token);
                 navigate("/home");
             })
             .catch((err) => {
-                toast.error("Giriş Yapılamadı İşlem Başarısız");
+                toast.error(Messages.userloginfail);
                 console.log(err);
             });
     };
     const onSubmitDoctor = (data) => {
       login(data)
           .then((response) => {
-              toast.success("Giriş Başarılı");
+              toast.success(Messages.userloginsuccess);
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
           })
           .catch((err) => {
-              toast.error("Giriş Yapılamadı İşlem Başarısız");
+              toast.error(Messages.userloginfail);
               console.log(err);
           });
   };
@@ -77,7 +78,7 @@ export default function Login() {
                                         register={register("email", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="email" title="E-posta alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errors} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
                                     <LabelFor name="password" errors={errors}>
@@ -89,15 +90,15 @@ export default function Login() {
                                         register={register("password", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errors} />
                                 </fieldset>
                             </div>
                             <BaseButton text={"Giriş Yap"} />
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
-                        <Heading text="Hasta Giriş" />
+                        <Heading text="Doktor Giriş" />
                         <form className="bg-white w-[300px]" onSubmit={handleSubmit(onSubmitDoctor)}>
                             <h1 className="text-gray-800 font-bold text-3xl mb-5">Hoşgeldin :)</h1>
                             <p className="text-sm font-normal text-gray-600 mb-7">Giriş Yap ve Hemen Destek Almaya Başla</p>
@@ -112,7 +113,7 @@ export default function Login() {
                                         register={register("email", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="email" title="E-posta alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errors} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
                                     <LabelFor name="password" errors={errors}>
@@ -124,11 +125,11 @@ export default function Login() {
                                         register={register("password", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errors} />
                                 </fieldset>
                             </div>
                             <BaseButton text={"Giriş Yap"} />
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                         </form>
                     </TabPanel>
                 </TabView>
