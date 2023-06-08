@@ -7,13 +7,15 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import moment from "moment";
 import { Badge } from "primereact/badge";
+import { Dropdown } from 'primereact/dropdown';
+import { Tag } from 'primereact/tag';
+
 
 export default function Meets() {
     const dispatch = useDispatch();
     const meets = useSelector((state) => state.meet.meets);
     const [newMeets, setNewMeets] = useState([]);
-    console.log(meets);
-
+    
     useEffect(() => {
         dispatch(getAllMeeting());
         setNewMeets(
@@ -70,19 +72,44 @@ export default function Meets() {
             </>
         );
     };
-    const statebodytemplate = (option) => {
-        if (option.state === "APPROVED") {
-            return <Badge value="KABUL EDİLMİŞ" severity="success"></Badge>;
-        } else if (option.state === "CANCELLED") {
-            return <Badge value="İPTAL EDİLMİŞ" severity="danger"></Badge>;
-        } else if (option.state === "REJECTED") {
-            return <Badge value="REDDEDİLMİŞ" severity="danger"></Badge>;
-        } else if (option.state === "WAITING_FOR_APPROVAL") {
-            return <Badge value="KABUL BEKLİYOR" severity="info"></Badge>;
-        } else if (option.state === "PAYMENT_REQUIRED") {
-            return <Badge value="ÖDEME YAPILMASI GEREKİYOR" severity="warning"></Badge>;
+
+    const MeetStatus={
+        approved:"APPROVED",
+        cancalled:"CANCELLED",
+        rejected:"REJECTED",
+        waitind:"WAITING_FOR_APPROVAL",
+        payment:"PAYMENT_REQUIRED",
+    }
+
+
+    const [statuses] = useState(['KABUL EDİLMİŞ', 'İPTAL EDİLMİŞ', 'REDDEDİLMİŞ', 'KABUL BEKLİYOR', 'ÖDEME YAPILMASI GEREKİYOR']);
+
+    const getSeverity = (option) => {
+        if (option?.state === MeetStatus.approved) {
+            return "success"
+        } else if (option?.state === MeetStatus.cancalled) {
+            return "warning"
+        } else if (option?.state === MeetStatus.rejected) {
+            return "danger"
+        } else if (option?.state === MeetStatus.waitind) {
+            return "info"
+        } else if (option?.state === MeetStatus.payment) {
+            return null
         }
     };
+
+    const stateItemTemplate = (option) => {
+        return <Tag value={option} severity={getSeverity(option)} />;
+    };
+    const stateBodyTemplate = (rowData) => {
+        return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
+    };
+
+    const stateFilterTemplate = (options) => {
+        return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={stateItemTemplate} placeholder="Select One" className="p-column-filter" showClear />;
+    };
+
+
 
     return (
         <DataTable
@@ -96,7 +123,7 @@ export default function Meets() {
         >
             <Column field="id" header="Görüşme No" sortable />
             <Column filter filterField="doctorName" field="doctorName" header="Doktor" sortable />
-            <Column filter filterField="state" body={statebodytemplate} field="state" header="Görüşme Durumu" sortable />
+            <Column filter filterField="state" filterElement={stateFilterTemplate} body={stateBodyTemplate} field="state" header="Görüşme Durumu" sortable />
             <Column
                 field="appointment.date_time"
                 header="Randevu Tarihi"

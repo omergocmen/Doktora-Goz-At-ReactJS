@@ -11,7 +11,7 @@ export default function Cart() {
     const dispatch = useDispatch();
     const basket = useSelector((state) => state.basket.basket);
     useEffect(() => {
-        dispatch(getBasket());
+        // dispatch(getBasket());
     }, []);
 
     return (

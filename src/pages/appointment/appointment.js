@@ -4,7 +4,9 @@ import { Column } from "primereact/column";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
 import { getAllAppointment } from "../../store/appointmentSlice";
-import { Badge } from 'primereact/badge';
+import { Badge } from "primereact/badge";
+import { Dropdown } from 'primereact/dropdown';
+
 
 export default function Appointment() {
     const dispatch = useDispatch();
@@ -29,24 +31,56 @@ export default function Appointment() {
         </div>
     );
 
-    const statebodytemplate = (option) => {
-        if(option.state==="APPROVED"){
-            return <Badge value="KABUL EDİLMİŞ" severity="success"></Badge>
-        }else if(option.state==="CANCELLED"){
-            return <Badge value="İPTAL EDİLMİŞ" severity="danger"></Badge>
-        }else if(option.state==="REJECTED"){
-            return <Badge value="REDDEDİLMİŞ" severity="danger"></Badge>
-        }else if(option.state==="WAITING_FOR_APPROVAL"){
-            return <Badge value="KABUL BEKLİYOR" severity="info"></Badge>
-        }else if(option.state==="PAYMENT_REQUIRED"){
-            return <Badge value="ÖDEME YAPILMASI GEREKİYOR" severity="warning"></Badge>
-        }
+
+    const statuses = [
+        "KABUL EDİLMİŞ",
+        "İPTAL EDİLMİŞ",
+        "REDDEDİLMİŞ",
+        "KABUL BEKLİYOR",
+        "ÖDEME YAPILMASI GEREKİYOR"
+      ];
+
+    const statusFilterTemplate = (options) => {
+        return (
+          <Dropdown
+            value={options.value}
+            options={statuses}
+            onChange={(e) => {
+              options.filterCallback(e.value, options.index);
+            }}
+            itemTemplate={statusItemTemplate}
+            placeholder="Durum Belirt"
+            className="p-column-filter"
+            showClear
+          />
+        );
+      };
+
+      const statusBodyTemplate = (rowData) => {
+        return statusItemTemplate(rowData.state);
+      };
+
+    const AppointmentStatus = {
+        approved: "APPROVED",
+        cancalled: "CANCELLED",
+        rejected: "REJECTED",
+        waitind: "WAITING_FOR_APPROVAL",
+        payment: "PAYMENT_REQUIRED",
     };
 
-    
-
-
-
+    const statusItemTemplate = (option) => {
+        if (option === AppointmentStatus.approved) {
+            return <Badge value="KABUL EDİLMİŞ" severity="success"></Badge>;
+        } else if (option === AppointmentStatus.cancalled) {
+            return <Badge value="İPTAL EDİLMİŞ" severity="danger"></Badge>;
+        } else if (option === AppointmentStatus.rejected) {
+            return <Badge value="REDDEDİLMİŞ" severity="danger"></Badge>;
+        } else if (option === AppointmentStatus.waitind) {
+            return <Badge value="KABUL BEKLİYOR" severity="info"></Badge>;
+        } else if (option === AppointmentStatus.payment) {
+            return <Badge value="ÖDEME YAPILMASI GEREKİYOR" severity="warning"></Badge>;
+        }
+    };
 
     return (
         <DataTable
@@ -61,7 +95,7 @@ export default function Appointment() {
             <Column filter field="doctorName" filterField="doctorName" header="Doktor" sortable />
             <Column filter field="doctor.branch.name" filterField="doctor.branch.name" header="Doktor Uzmanlık Alanı" sortable />
             <Column field="patient_note" header="Şikayet Sebebi" sortable />
-            <Column field="state" body={statebodytemplate} header="Randevu Durumu" sortable />
+            <Column field="state" filterElement={statusFilterTemplate} body={statusBodyTemplate} header="Durum" filter />
             <Column
                 filter
                 field="date_time"

@@ -92,12 +92,12 @@ export default function Login() {
                                     <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
                                 </fieldset>
                             </div>
-                            <BaseButton text={"Giriş Yap"} />
+                            <BaseButton className="w-full" text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
-                        <Heading text="Hasta Giriş" />
+                        <Heading text="Doktor Giriş" />
                         <form className="bg-white w-[300px]" onSubmit={handleSubmit(onSubmitDoctor)}>
                             <h1 className="text-gray-800 font-bold text-3xl mb-5">Hoşgeldin :)</h1>
                             <p className="text-sm font-normal text-gray-600 mb-7">Giriş Yap ve Hemen Destek Almaya Başla</p>
@@ -127,7 +127,7 @@ export default function Login() {
                                     <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
                                 </fieldset>
                             </div>
-                            <BaseButton text={"Giriş Yap"} />
+                            <BaseButton className="w-full" text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
                         </form>
                     </TabPanel>

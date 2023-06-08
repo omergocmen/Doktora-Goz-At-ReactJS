@@ -25,3 +25,14 @@ body {
 .p-unselectable-text{
   width: 50%;
 }
+.p-menuitem-link{
+  background-color: transparent !important;
+}
+
+.p-steps-current::before{
+  border-top: 2px solid green !important;
+}
+
+.p-disabled::before{
+  border-top: 2px solid white !important;
+}

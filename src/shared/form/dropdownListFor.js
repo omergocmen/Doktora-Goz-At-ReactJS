@@ -11,6 +11,7 @@ export default function DropdownListFor({
   className,
   data,
   onChangeCustom,
+  selectInputRef
 }) {
   return (
     <Controller
@@ -24,6 +25,7 @@ export default function DropdownListFor({
           {...field}
           className={className}
           errors={errors}
+          ref={selectInputRef}
           instanceId={register.name}
           options={data}
           placeholder={searchPlaceholder}

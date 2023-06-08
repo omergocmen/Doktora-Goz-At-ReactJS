@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import BaseButton from "../../shared/components/baseButton";
-import { getAllMeeting, getMeetingById } from "../../store/meetSlice";
+import { getMeetingById } from "../../store/meetSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,6 @@ export default function MeetDetail() {
     const users = meet.appointment;
     const doctor = users?.doctor.title + " " + users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
-    console.log(meets);
     const jobs = [
         {
             title: "UI – Front End Dev",
