@@ -34,5 +34,5 @@ body {
 }
 
 .p-disabled::before{
-  border-top: 2px solid white !important;
+  border-top: 2px solid wheat !important;
 }

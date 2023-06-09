@@ -48,7 +48,7 @@ export default function MeetDetail() {
         },
     ];
     return (
-        <div className="w-3/4 mx-auto">
+        <div className="w-3/4 mx-auto mb-20">
             <div className="container mx-auto px-4 my-10">
                 <div className="items-center flex">
                     <div className="w-full md:w-4/12 ml-auto mr-auto px-4">

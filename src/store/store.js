@@ -8,6 +8,7 @@ import discount from './discountSlice'
 import doctor from "./doctorSlice"
 import meet from "./meetSlice"
 import appointment from "./appointmentSlice"
+import branch from "./branchSlice";
 
 
 const combinedReducers = combineReducers({
@@ -19,7 +20,8 @@ const combinedReducers = combineReducers({
     discount,
     doctor,
     meet,
-    appointment
+    appointment,
+    branch
 });
 
 const store = configureStore({

@@ -26,6 +26,7 @@ export default function Login() {
         login(data)
             .then((response) => {
                 toast.success("Giriş Başarılı");
+                localStorage.setItem("userType","Patient")
                 localStorage.setItem("userToken", response.data.data.token);
                 navigate("/home");
             })
@@ -38,6 +39,7 @@ export default function Login() {
       login(data)
           .then((response) => {
               toast.success("Giriş Başarılı");
+              localStorage.setItem("userType","Doctor")
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
           })

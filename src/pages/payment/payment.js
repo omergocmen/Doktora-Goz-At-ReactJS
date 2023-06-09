@@ -70,19 +70,18 @@ export default function Payment() {
     };
     const onSubmitfinish = (data) => {
         const newAppointmentData = {
-            doktorId: params.id,
+            doctorId: parseInt(params.id),
             note: newAppointment.description,
             dateTime: selectedDates[newAppointment.dateTime.value].dateTime,
             payment: {
-                identityNumber: data.cardNumber,
+                identityNumber: "33164273455",
                 cardHolderName: data.cardHolderName,
                 cardNumber: data.cardNumber,
-                month: data.expiration,
-                year: data.expiration,
+                expiration: data.expiration,
                 cvc: data.cvv,
             },
         };
-  
+
         dispatch(createAppointment(newAppointmentData));
     };
 
@@ -95,7 +94,7 @@ export default function Payment() {
         dispatch(getDoctorAppointmentDates(params.id));
         const filteredData = dates.filter((obj, index) => {
             const objDate = moment(obj.dateTime).format("DD.MM.YYYY");
-            return objDate === selectedTime;
+            return objDate === selectedTime && !obj.isFull;
         });
 
         if (selectedTime && filteredData.length == 0) {
@@ -105,14 +104,7 @@ export default function Payment() {
     }, [JSON.stringify(selectedTime)]);
 
     return (
-        <div
-            style={{
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100%",
-                backgroundImage: `url(https://images.pexels.com/photos/4046971/pexels-photo-4046971.jpeg)`,
-            }}
-            className="w-3/5 mx-auto my-[100px] min-w-[700px] rounded-2xl h:[900px] lg:h-[800px] shadow-2xl p-[105px]"
-        >
+        <div className="w-3/5 mx-auto my-[100px] min-w-[700px] rounded-2xl h:[900px] lg:h-[800px] shadow-2xl p-[105px]">
             <Steps activeIndex={activePage} model={stepItems} />
             {activePage == 0 ? (
                 <form className="w-3/5 mx-auto" onSubmit={handleSubmit(onStepSubmitNext)}>

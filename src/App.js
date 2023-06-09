@@ -8,7 +8,7 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "primereact/resources/primereact.min.css";  
 import 'primeflex/primeflex.css';
-import "primereact/resources/themes/fluent-light/theme.css";
+import "primereact/resources/themes/lara-light-blue/theme.css";     
 
 function App() {
   

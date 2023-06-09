@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BaseButton from "../../shared/components/baseButton";
 import { getAllMeeting, getMeetingById, getMeetingComments } from "../../store/meetSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +7,16 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import moment from "moment";
 import { Badge } from "primereact/badge";
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
-
+import { Dropdown } from "primereact/dropdown";
+import { Tag } from "primereact/tag";
+import { Button } from "primereact/button";
 
 export default function Meets() {
     const dispatch = useDispatch();
     const meets = useSelector((state) => state.meet.meets);
     const [newMeets, setNewMeets] = useState([]);
-    
+    const dt = useRef(null);
+
     useEffect(() => {
         dispatch(getAllMeeting());
         setNewMeets(
@@ -23,46 +24,24 @@ export default function Meets() {
                 return {
                     ...item,
                     doctorName: item.appointment.doctor.user.name + " " + item.appointment.doctor.user.surname,
+                    state: getState(item.state),
                 };
             })
         );
     }, [JSON.stringify(meets)]);
 
-    const jobs = [
-        {
-            title: "UI – Front End Dev",
-            desc: "Currently, ManTech is seeking a motivated, career and customer-oriented Software Developer to join our team in Fort Meade, MD.",
-            date: "May 17, 2022",
-            salary: "98,000 USD",
-            type: "Full-time",
-            location: "Columbia, MD",
-            href: "javascript:void(0)",
-        },
-        {
-            title: "Back End Developer",
-            desc: " Help us solve problems and develop great user interface tools for our developers.",
-            date: "Nov 11, 2022",
-            salary: "$105,000 USD",
-            type: "Part-time",
-            location: "Remote",
-            href: "javascript:void(0)",
-        },
-        {
-            title: "Full-Stack Developer",
-            desc: "This position is 100% remote, working as part of a small, multi-functional team. You must be confident at working alone.",
-            date: "Jan 2, 2022",
-            salary: "163,273 USD",
-            type: "Full-time",
-            location: "Remote",
-            href: "javascript:void(0)",
-        },
-    ];
+    const getState = (state) => {
+        if (state == "APPROVED") {
+            return "KABUL EDİLMİŞ";
+        } else if (state == "CANCELLED") {
+            return "İPTAL EDİLMİŞ";
+        } else if (state == "COMPLETED") {
+            return "TAMAMLANMIŞ";
+        } else {
+            return "BELİRSİZ";
+        }
+    };
 
-    const header = (
-        <div className="py-2">
-            <h1 className="text-4xl">Toplantı Geçmişi</h1>
-        </div>
-    );
     const settingTemplate = (option) => {
         return (
             <>
@@ -73,65 +52,144 @@ export default function Meets() {
         );
     };
 
-    const MeetStatus={
-        approved:"APPROVED",
-        cancalled:"CANCELLED",
-        rejected:"REJECTED",
-        waitind:"WAITING_FOR_APPROVAL",
-        payment:"PAYMENT_REQUIRED",
-    }
+    const MeetStatus = {
+        approved: "KABUL EDİLMİŞ",
+        cancalled: "İPTAL EDİLMİŞ",
+        complated: "TAMAMLANMIŞ",
+    };
 
+    const [statuses] = useState(Object.values(MeetStatus));
 
-    const [statuses] = useState(['KABUL EDİLMİŞ', 'İPTAL EDİLMİŞ', 'REDDEDİLMİŞ', 'KABUL BEKLİYOR', 'ÖDEME YAPILMASI GEREKİYOR']);
+    const stateItemTemplate = (option) => {
+        const statusValues = getStatusValues(option);
+        return <Tag value={statusValues.value} severity={statusValues.severity} />;
+    };
+    const statebodytemplate = (option) => {
+        const statusValues = getStatusValues(option.state);
+        return <Badge value={statusValues.value} severity={statusValues.severity} />;
+    };
 
-    const getSeverity = (option) => {
-        if (option?.state === MeetStatus.approved) {
-            return "success"
-        } else if (option?.state === MeetStatus.cancalled) {
-            return "warning"
-        } else if (option?.state === MeetStatus.rejected) {
-            return "danger"
-        } else if (option?.state === MeetStatus.waitind) {
-            return "info"
-        } else if (option?.state === MeetStatus.payment) {
-            return null
+    const getStatusValues = (option) => {
+        if (option === MeetStatus.approved) {
+            return { value: "KABUL EDİLMİŞ", severity: "success" };
+        } else if (option === MeetStatus.cancalled) {
+            return { value: "İPTAL EDİLMİŞ", severity: "danger" };
+        } else if (option === MeetStatus.complated) {
+            return { value: "TAMAMLANMIŞ", severity: "info" };
         }
     };
 
-    const stateItemTemplate = (option) => {
-        return <Tag value={option} severity={getSeverity(option)} />;
-    };
-    const stateBodyTemplate = (rowData) => {
-        return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
-    };
-
     const stateFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={stateItemTemplate} placeholder="Select One" className="p-column-filter" showClear />;
+        return (
+            <Dropdown
+                value={options.value}
+                options={statuses}
+                onChange={(e) => options.filterCallback(e.value, options.index)}
+                itemTemplate={stateItemTemplate}
+                placeholder="Select One"
+                className="p-column-filter"
+                showClear
+            />
+        );
     };
 
+    const exportCSV = (selectionOnly) => {
+        dt.current.exportCSV({ selectionOnly });
+    };
+    const exportColumns = [
+        { title: "Id", dataKey: "id" },
+        { title: "Doktor Adı", dataKey: "doctorName" },
+        { title: "Şikayet Sebebi", dataKey: "patient_note" },
+        { title: "Maliyet", dataKey: "date_time" },
+        { title: "Durum", dataKey: "state" },
+    ];
+    const exportPdf = () => {
+        import("jspdf").then((jsPDF) => {
+            import("jspdf-autotable").then(() => {
+                const doc = new jsPDF.default(0, 0);
+                doc.autoTable(exportColumns, newMeets);
+                doc.save("görüşmeler.pdf");
+            });
+        });
+    };
 
+    const exportExcel = () => {
+        import("xlsx").then((xlsx) => {
+            const worksheet = xlsx.utils.json_to_sheet(newMeets);
+            const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+            const excelBuffer = xlsx.write(workbook, {
+                bookType: "xlsx",
+                type: "array",
+            });
+            saveAsExcelFile(excelBuffer, "görüşmeler");
+        });
+    };
 
+    const saveAsExcelFile = (buffer, fileName) => {
+        import("file-saver").then((module) => {
+            if (module && module.default) {
+                let EXCEL_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+                let EXCEL_EXTENSION = ".xlsx";
+                const data = new Blob([buffer], {
+                    type: EXCEL_TYPE,
+                });
+
+                module.default.saveAs(data, fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION);
+            }
+        });
+    };
+
+    const header = (
+        <>
+            <div className="py-2">
+                <h1 className="text-4xl">Toplantı Geçmişi</h1>
+            </div>
+            <div className="flex align-items-center export-buttons mb-4">
+                <Button type="button" icon="pi pi-file" rounded onClick={() => exportCSV(false)} data-pr-tooltip="CSV" />
+                <Button
+                    className="mx-2"
+                    type="button"
+                    icon="pi pi-file-excel"
+                    severity="success"
+                    rounded
+                    onClick={exportExcel}
+                    data-pr-tooltip="XLS"
+                />
+                <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded onClick={exportPdf} data-pr-tooltip="PDF" />
+            </div>
+        </>
+    );
     return (
         <DataTable
             className="mt-20"
             value={newMeets}
             paginator
             header={header}
+            ref={dt}
             rows={10}
             dataKey="id"
             tableStyle={{ margin: "auto", minWidth: "50rem" }}
         >
             <Column field="id" header="Görüşme No" sortable />
             <Column filter filterField="doctorName" field="doctorName" header="Doktor" sortable />
-            <Column filter filterField="state" filterElement={stateFilterTemplate} body={stateBodyTemplate} field="state" header="Görüşme Durumu" sortable />
+            <Column
+                filter
+                filterField="state"
+                filterElement={stateFilterTemplate}
+                body={statebodytemplate}
+                field="state"
+                header="Görüşme Durumu"
+                sortable
+            />
             <Column
                 field="appointment.date_time"
-                header="Randevu Tarihi"
+                header="Görüşme Tarihi"
                 body={(item) => {
-                    return moment(item.createdDate).format("DD.MM.YYYY");
+                    return moment.utc(item.appointment.date_time).format("DD.MM.YYYY / HH:mm");
                 }}
                 sortable
             />
+            <Column filter filterField="appointment.patient_note" field="appointment.patient_note" header="Hasta Notu" sortable />
             <Column header="Görüşme Detayı" body={settingTemplate} exportable={false} style={{ minWidth: "12rem" }}></Column>
         </DataTable>
     );
