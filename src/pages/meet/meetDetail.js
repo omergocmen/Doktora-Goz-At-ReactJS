@@ -1,52 +1,66 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import BaseButton from "../../shared/components/baseButton";
-import { getMeetingById } from "../../store/meetSlice";
+import {getMeetingById, getMeetingComments, sendComment} from "../../store/meetSlice";
+import {sendPoint} from "../../store/scoreSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {Rating} from "primereact/rating";
+import {toast} from "react-toastify";
 
 export default function MeetDetail() {
     const dispatch = useDispatch();
 
     const params = useParams();
 
+    const [value, setValue] = useState(0);
     const meet = useSelector((state) => state.meet.meet);
     const meets = useSelector((state) => state.meet.meets);
+    const comments = useSelector((state) => state.meet.getMeetingComments);
+    const commentMessage = useRef();
+    const role = localStorage.getItem("userType");
+
 
     useEffect(() => {
         dispatch(getMeetingById(params.id));
+        dispatch(getMeetingComments(params.id));
     }, []);
     const users = meet.appointment;
     const doctor = users?.doctor.title + " " + users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
-    const jobs = [
-        {
-            title: "UI – Front End Dev",
-            desc: "Currently, ManTech is seeking a motivated, career and customer-oriented Software Developer to join our team in Fort Meade, MD.",
-            date: "May 17, 2022",
-            salary: "98,000 USD",
-            type: "Full-time",
-            location: "Columbia, MD",
-            href: "javascript:void(0)",
-        },
-        {
-            title: "Back End Developer",
-            desc: " Help us solve problems and develop great user interface tools for our developers.",
-            date: "Nov 11, 2022",
-            salary: "$105,000 USD",
-            type: "Part-time",
-            location: "Remote",
-            href: "javascript:void(0)",
-        },
-        {
-            title: "Full-Stack Developer",
-            desc: "This position is 100% remote, working as part of a small, multi-functional team. You must be confident at working alone.",
-            date: "Jan 2, 2022",
-            salary: "163,273 USD",
-            type: "Full-time",
-            location: "Remote",
-            href: "javascript:void(0)",
-        },
-    ];
+
+    const saveNewComment = () => {
+
+        const newComment = {
+            comment: commentMessage.current.value
+        };
+        dispatch(sendComment(
+            {
+                id: params.id,
+                data: newComment
+                }
+        ));
+    }
+
+    const meetingNotStartError = () => {
+        toast.error("Toplantı Henüz başlamadı");
+    }
+
+
+    const sendRating = () => {
+        console.log(value);
+        const newPoint = {
+            point: value
+        };
+
+        dispatch(sendPoint(
+            {
+                id: users?.doctor.user.id,
+                data: newPoint
+            }
+        ));
+
+    }
+
     return (
         <div className="w-3/4 mx-auto mb-20">
             <div className="container mx-auto px-4 my-10">
@@ -97,9 +111,6 @@ export default function MeetDetail() {
                                                 Doktorun size yol gösterip fikir vereceğinden şüphe duymuyoruz, unutma bu uygulama seni rahatsızlığın
                                                 konusunda aydınlatmak ve fikir vermek amacıyla tasarlandı.
                                             </h4>
-                                            <h4 className="text-gray-600"> Toplantı Katılımcıları : </h4>
-                                            <h4 className="text-gray-600"> {doctor} </h4>
-                                            <h4 className="text-gray-600"> {patient} </h4>
                                         </div>
                                     </div>
                                 </li>
@@ -118,37 +129,121 @@ export default function MeetDetail() {
                                         </div>
                                     </div>
                                 </li>
+                                <li className="py-2">
+                                    <div className="flex items-center">
+                                        <div>
+                                            <span className="text-xs font-semibold inline-block py-2 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                                                <i className="far fa-paper-plane"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-gray-600"> <b>Toplantı Katılımcıları :</b> </h4>
+                                            <h4 className="text-gray-600"> {doctor + " , " + patient} </h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="py-2">
+                                    <div className="flex items-center">
+                                        <div>
+                                            <span className="text-xs font-semibold inline-block py-2 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                                                <i className="far fa-paper-plane"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+
+                                            { (role == "Patient") ?
+                                                <div>
+                                                        { (users?.date_time < Date()) ?
+                                                            <Link>
+                                                                <button
+                                                                    onClick={meetingNotStartError}
+                                                                    className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                    Toplantıya Katıl
+                                                                </button>
+                                                            </Link>
+                                                            :
+                                                            <Link to={meet.patient_meet_link}>
+                                                                <button
+                                                                    className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                    Toplantıya Katıl
+                                                                </button>
+                                                            </Link>
+                                                        }
+
+
+                                                </div>
+                                                :
+                                                <div>
+                                                    { (users?.date_time < Date()) ?
+                                                        <Link>
+                                                            <button
+                                                                onClick={meetingNotStartError}
+                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                Toplantıya Katıl
+                                                            </button>
+                                                        </Link>
+                                                        :
+                                                        <Link to={meet.doctor_meet_link}>
+                                                            <button
+                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                Toplantıya Katıl
+                                                            </button>
+                                                        </Link>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div className="flex mb-4">
+                    <span className="flex items-center">
+                        <span className="text-gray-600">Doktoru Değerlendir</span>
+                    </span>
+                    <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                        <Rating value={value} onChange={(e) => setValue(e.value)} cancel={false} />
+                        <span className="flex ml-3 pl-3 py-2">
+                            <BaseButton text={"Gönder"} onClick={sendRating}/>
+                        </span>
+                    </span>
+                </div>
             </div>
+
+
             <div className="input-section w-full">
                 <div className="mx-auto px-4 text-gray-600">
                     <div className="mt-12 mx-auto">
                         <div>
                             <textarea
                                 placeholder="Mesajınız..."
+                                ref={commentMessage}
                                 required
                                 className="w-full border-2 border-black 
                             mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                             ></textarea>
                         </div>
-                        <BaseButton text={"Gönder"} />
+                        <BaseButton onClick={saveNewComment} text={"Gönder"} />
                     </div>
                 </div>
             </div>
             <div className="comment-section">
                 <section className="mt-12 text-left mx-auto">
                     <ul className="mt-12 space-y-3 px-4">
-                        {jobs.map((item, idx) => (
+                        {comments.map((item, idx) => (
                             <li key={idx} className="p-5 bg-white border-1 border-black rounded-md shadow-sm">
                                 <a href={item.href}>
                                     <div>
                                         <div className="justify-between sm:flex">
-                                            <div className="flex-1">
-                                                <h3 className="text-xl font-medium">{item.title}</h3>
-                                                <p className="text-gray-500 mt-2 pr-2">{item.desc}</p>
+                                            <img
+                                                src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
+                                                className="w-16 rounded-full"
+                                                alt="Avatar"/>
+                                            <div className="flex-1 ml-3">
+                                                <h3 className="text-xl font-medium">{item.user.name + " " + item.user.surname}</h3>
+                                                <p className="text-gray-500 mt-2 pr-2">{item.comment}</p>
                                             </div>
                                         </div>
                                     </div>
