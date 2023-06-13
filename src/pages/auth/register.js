@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
-import loginimg from "../../assets/images/login3.jpg";
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import loginimg from "../../assets/images/login3.jpg";
+import JwtHelper from '../../helpers/jwtHelper';
+import BaseButton from '../../shared/components/baseButton';
+import Dropdown from '../../shared/components/dropdown';
+import LabelFor from "../../shared/form/labelFor";
 import TextboxFor from '../../shared/form/textboxFor';
 import ValidationFor from "../../shared/form/validationFor";
-import LabelFor from "../../shared/form/labelFor";
 import { registerDoctor } from '../../store/authSlice';
-import BaseButton from '../../shared/components/baseButton';
-import { useNavigate } from 'react-router-dom';
-import JwtHelper from '../../helpers/jwtHelper';
-import { useDispatch } from 'react-redux';
 
 export default function Register() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -19,25 +20,35 @@ export default function Register() {
 
     const onSubmit = (data) => {
         const body = {
-            name:"Berkay",
-            surname:"Babataş",
-            gender:"MAN",
-            email: "bariasswwwwq@hotmail.com",
-            password:"12596312",
-            phoneNumber: "21354821623",
-            title: "prof. Dr",
-            education: "Hacettepe Tıp",
-            description: "iyi bir doktorum",
-            price: 20.1,
-            birthDate:"2001-06-29",
-            branch:1,
-            address: "Petrolis Mahallesi Gülistan sokak no 17",
-            city: "Istanbul",
-            country:"Kartal",
-            zipCode: "34862"
+            // name:"Berkay",
+            // surname:"Babataş",
+            // gender:"MAN",
+            // email: "bariasswwwwq@hotmail.com",
+            // password:"12596312",
+            // phoneNumber: "21354821623",
+            // title: "prof. Dr",
+            // education: "Hacettepe Tıp",
+            // description: "iyi bir doktorum",
+            // price: 20.1,
+            // birthDate:"2001-06-29",
+            // branch:1,
+            // address: "Petrolis Mahallesi Gülistan sokak no 17",
+            // city: "Istanbul",
+            // country:"Kartal",
+            // zipCode: "34862"
+            name: data.name,
+            surname: data.surname,
+            gender: data.gender,
+            email: data.email,
+            password: data.password
         }
         dispatch(registerDoctor(body))
     }
+    const genderOptions = [
+        { label: "Erkek", value: "Erkek" },
+        { label: "Kadın", value: "Kadın" },
+        { label: "Diğer", value: "Diğer" }
+    ];
 
     useEffect(() => {
         if(isAuthentication){
@@ -56,6 +67,55 @@ export default function Register() {
                     <h1 className="text-gray-800 font-bold text-3xl mb-5">Hoşgeldin :)</h1>
                     <p className="text-sm font-normal text-gray-600 mb-7">Giriş Yap ve Hemen Eğitime Başla</p>
                     <div className='text-left'>
+                        <fieldset className="flex flex-col">
+                            <LabelFor name="name" errors={errors}>
+                                Ad
+                            </LabelFor>
+                            <TextboxFor
+                                placeholder="Adınızı girin"
+                                type="text"
+                                register={register("name", { required: true })}
+                                errors={errors}
+                            />
+                            <ValidationFor
+                                name="name"
+                                title="Ad alanını boş bırakmayınız."
+                                errors={errors}
+                            />
+                        </fieldset>
+
+                        <fieldset className="flex flex-col">
+                            <LabelFor name="surname" errors={errors}>
+                                Soyadı
+                            </LabelFor>
+                            <TextboxFor
+                                placeholder="Soyadınızı girin"
+                                type="text"
+                                register={register("name", { required: true })}
+                                errors={errors}
+                            />
+                            <ValidationFor
+                                name="surname"
+                                title="Soyadı alanını boş bırakmayınız."
+                                errors={errors}
+                            />
+                        </fieldset>
+                        <fieldset className="flex flex-col">
+                            <LabelFor name="gender" errors={errors}>
+                                Cinsiyet
+                            </LabelFor>
+                            <Dropdown
+                                items={genderOptions}
+                                register={register("gender", { required: true })}
+                                errors={errors}
+                            />
+                            <ValidationFor
+                                name="gender"
+                                title="Cinsiyet alanını seçiniz."
+                                errors={errors}
+                            />
+                        </fieldset>
+
                         <fieldset className="flex flex-col">
                             <LabelFor name="email" errors={errors}>
                                 E-Posta
@@ -89,8 +149,8 @@ export default function Register() {
                             />
                         </fieldset>
                     </div>
-                    <BaseButton text={"Giriş Yap"}/>
-                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                    <BaseButton text={"Üye Ol"}/>
+                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/login") }>Zaten üye misin?</span>
                 </form>
             </div>
         </div>
