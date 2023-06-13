@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import loginimg from "../../assets/images/login.jpg";
+import { Messages } from "../../constants/messages";
 import JwtHelper from "../../helpers/jwtHelper";
 import BaseButton from "../../shared/components/baseButton";
 import Heading from "../../shared/components/heading";
@@ -25,26 +26,27 @@ export default function Login() {
     const onSubmitPatient = (data) => {
         login(data)
             .then((response) => {
-                toast.success("Giriş Başarılı");
+                toast.success(Messages.userloginsuccess);
                 localStorage.setItem("userType","Patient")
                 localStorage.setItem("userToken", response.data.data.token);
                 navigate("/home");
             })
             .catch((err) => {
-                toast.error("Giriş Yapılamadı İşlem Başarısız");
+                toast.error(Messages.userloginfail);
                 console.log(err);
             });
     };
     const onSubmitDoctor = (data) => {
       login(data)
           .then((response) => {
+              toast.success(Messages.userloginsuccess);
               toast.success("Giriş Başarılı");
               localStorage.setItem("userType","Doctor")
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
           })
           .catch((err) => {
-              toast.error("Giriş Yapılamadı İşlem Başarısız");
+              toast.error(Messages.userloginfail);
               console.log(err);
           });
   };
@@ -79,7 +81,7 @@ export default function Login() {
                                         register={register("email", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="email" title="E-posta alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errors} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
                                     <LabelFor name="password" errors={errors}>
@@ -91,12 +93,11 @@ export default function Login() {
                                         register={register("password", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errors} />
                                 </fieldset>
                             </div>
-                            <BaseButton className="w-full" text={"Giriş Yap"} />
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
-                            
+                            <BaseButton text={"Giriş Yap"} />
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
@@ -116,7 +117,7 @@ export default function Login() {
                                         register={register("email", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="email" title="E-posta alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errors} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
                                     <LabelFor name="password" errors={errors}>
@@ -128,9 +129,11 @@ export default function Login() {
                                         register={register("password", { required: true })}
                                         errors={errors}
                                     />
-                                    <ValidationFor name="password" title="Şifre alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errors} />
                                 </fieldset>
                             </div>
+                            <BaseButton text={"Giriş Yap"} />
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <BaseButton className="w-full" text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>

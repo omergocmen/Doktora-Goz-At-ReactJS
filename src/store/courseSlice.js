@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import baseAxios from "../helpers/baseAxios";
 
 export const getAllCourses = createAsyncThunk("catalog/courses/getall", async () => {
@@ -30,7 +30,7 @@ export const addCourse = createAsyncThunk("catalog/courses/save", async (data) =
   return baseAxios
     .post("catalog/courses/save",data)
     .then((response) => {
-      toast.success("Başarıyla Eklendi");
+      toast.success(Messages.addsuccess);
       return response.data;
     })
     .catch((err) => {

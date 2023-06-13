@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import privateBaseAxios from "../helpers/privateBaseAxios";
 
 export const getDiscountByCode = createAsyncThunk("discount/getbycode", async (code) => {
@@ -17,7 +18,7 @@ export const saveDiscount = createAsyncThunk("discount/save", async (data) => {
     return privateBaseAxios
       .post("discount/save",data)
       .then((response) => {
-        toast.success("Kupon Başarıyla Eklendi")
+        toast.success(Messages.couponaddsuccess)
         return response.data;
       })
       .catch((err) => {
@@ -29,7 +30,7 @@ export const saveDiscount = createAsyncThunk("discount/save", async (data) => {
     return privateBaseAxios
       .get("discount/delete?id="+id)
       .then((response) => {
-        toast.success("Kupon Başarıyla Silindi")
+        toast.success(Messages.couponremovedsuccess)
         return response.data;
       })
       .catch((err) => {

@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import baseAxios from "../helpers/baseAxios";
 
 export const getDoctorAppointmentDates = createAsyncThunk("appointment/datesbydoctorid", async (id) => {
@@ -29,7 +30,7 @@ export const createAppointment = createAsyncThunk("appointment/create", async (d
     return baseAxios
         .post("appointment/create",data)
         .then((response) => {
-            toast.success("Başarıyla Oluşturuldu.");
+            toast.success(Messages.succesfullycreated);
             return response.data;
         })
         .catch((err) => {
@@ -41,7 +42,7 @@ export const rejectAppointment = createAsyncThunk("appointment/appointmentid/rej
     return baseAxios
         .post("appointment/" + id + "/reject",data)
         .then((response) => {
-            toast.success("Randevu Reddedildi.");
+            toast.success(Messages.meetingdeclined);
             return response.data;
         })
         .catch((err) => {
@@ -53,7 +54,7 @@ export const cancelAppointment = createAsyncThunk("appointment/appointmentid/can
     return baseAxios
         .post("appointment/" + id + "/cancel")
         .then((response) => {
-            toast.success("Randevu İptal Edildi.");
+            toast.success(Messages.meetingcancelled);
             return response.data;
         })
         .catch((err) => {
@@ -65,7 +66,7 @@ export const approveAppointment = createAsyncThunk("appointment/appointmentid/ap
     return baseAxios
         .post("appointment/" + id + "/approve")
         .then((response) => {
-            toast.success("Randevu İptal Edildi.");
+            toast.success(Messages.meetingcancelled);
             return response.data;
         })
         .catch((err) => {

@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { Messages } from "../constants/messages";
 import privateBaseAxios from "../helpers/privateBaseAxios";
 
 export const getBasket = createAsyncThunk("basket/getbasket", async () => {
@@ -18,7 +19,7 @@ export const paymentBasket = createAsyncThunk("basket/saveorupdatebasket", async
   return privateBaseAxios
     .post("basket/saveorupdatebasket",data)
     .then((response) => {
-      toast.success("Ödeme İşlemi Başarıyla Gerçekleşti")
+      toast.success(Messages.paymentsuccess)
       thunkAPI.dispatch(getBasket())
       return response.data;
     })
@@ -31,7 +32,7 @@ export const saveBasket = createAsyncThunk("basket/saveorupdatebasket", async (d
     return privateBaseAxios
       .post("basket/saveorupdatebasket",data)
       .then((response) => {
-        toast.success("Sepet Başarıyla Güncellendi")
+        toast.success(Messages.cartupdated)
         thunkAPI.dispatch(getBasket())
         return response.data;
       })
@@ -44,7 +45,7 @@ export const saveBasket = createAsyncThunk("basket/saveorupdatebasket", async (d
     return privateBaseAxios
       .get("basket/deletebasket")
       .then((response) => {
-        toast.success("Sepet Başarıyla Temizlendi")
+        toast.success(Messages.cartcleaned)
         thunkAPI.dispatch(getBasket())
         return response.data;
       })
