@@ -1,16 +1,16 @@
+import { TabPanel, TabView } from "primereact/tabview";
 import React, { useEffect } from "react";
-import loginimg from "../../assets/images/login.jpg";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import loginimg from "../../assets/images/login.jpg";
+import JwtHelper from "../../helpers/jwtHelper";
+import BaseButton from "../../shared/components/baseButton";
+import Heading from "../../shared/components/heading";
+import LabelFor from "../../shared/form/labelFor";
 import TextboxFor from "../../shared/form/textboxFor";
 import ValidationFor from "../../shared/form/validationFor";
-import LabelFor from "../../shared/form/labelFor";
 import { login } from "../../store/authSlice";
-import BaseButton from "../../shared/components/baseButton";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import JwtHelper from "../../helpers/jwtHelper";
-import { TabView, TabPanel } from "primereact/tabview";
-import Heading from "../../shared/components/heading";
 
 export default function Login() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -96,6 +96,8 @@ export default function Login() {
                             </div>
                             <BaseButton className="w-full" text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                            
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
@@ -131,6 +133,7 @@ export default function Login() {
                             </div>
                             <BaseButton className="w-full" text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                 </TabView>
