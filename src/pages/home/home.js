@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Header from "../../partials/header";
 
 export default function Home() {
@@ -16,9 +15,9 @@ export default function Home() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-award"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Hızlıca Ürünleri Bulma İmkanı</h6>
+                    <h6 className="text-xl font-semibold">İstenilen Klinikleri Bulma İmkanı</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      Burada istediğin tüm ürünleri hızlı arama filtreleriyle bulabilir alternatifleriyle kıyaslayabilirsin
+                      Burada istediğin kliniklere göre hızlı arama filtrelerini kullanabilirsin
                     </p>
                   </div>
                 </div>
@@ -32,7 +31,7 @@ export default function Home() {
                     </div>
                     <h6 className="text-xl font-semibold">Ücretsiz Kullanım</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      Uygulamamızda dilediğin her alanı ücretsiz bir şekilde kullanabilirsin, önemli olan uygun ürünü bulabilmen
+                    Uygulamamızda, dilediğiniz tüm özellikleri ücretsiz bir şekilde kullanabilirsiniz. Hedefimiz sizin için en uygun sağlık hizmetini bulmanızdır.
                     </p>
                   </div>
                 </div>
@@ -43,9 +42,9 @@ export default function Home() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
                       <i className="fas fa-fingerprint"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Verilerin Güvende</h6>
+                    <h6 className="text-xl font-semibold">Verileriniz Güvende</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      Tüm verilerini büyük bir dikkat ile saklıyoruz, verilerin güncel yöntemler ile şifrelenerek saklanıyor. Güvenli ellerdesin :)
+                    Tüm verilerinizi büyük bir titizlikle koruyoruz. Verileriniz güncel yöntemlerle şifrelenerek saklanmaktadır.
                     </p>
                   </div>
                 </div>
@@ -58,15 +57,13 @@ export default function Home() {
                   <i className="fas fa-building text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Şirketler Artık Kolayca Adayları Görüntüleyebilecek ve Kendine Uygun Adayları Seçebilecek
+                  Şikayetinize Uygun Hekimleri Seçebilirsiniz
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
-                  En hızlı ve kolay şekilde ücretsiz iş ilanını oluşturup sana en uygun adayları bulabilirsin ayrıca aday aramak için uzun uzun zaman
-                  harcamana gerek yok Trink-is bunun için tasarlandı
+                En hızlı ve kolay şekilde ücretsiz bir şekilde kayıt olabilir ve sana en uygun doktorları bulabilirsin. 
+                Ayrıca doktor aramak için uzun uzun zaman harcamana gerek yok, Doktora Göz At'ın sunduğu kolaylıkla ihtiyacını karşılayabilirsin.
                 </p>
-                <Link to="/jobAnnouncment/create" className="font-bold text-gray-800 mt-8">
-                  Hemen İlan Oluştur
-                </Link>
+                
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">

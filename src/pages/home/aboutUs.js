@@ -39,9 +39,9 @@ export default function AboutUs() {
                   <div className="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
-                  <h3 className="text-3xl font-semibold">Gelişmekte Olan Bir Şirketiz</h3>
+                  <h3 className="text-3xl font-semibold">Doktora Göz At takımı olarak</h3>
                   <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                    Adayları ve işverenleri buluşturmayı amaçlayan, kullanıcı memnuniyetini en önemli ilkesi haline getiren bir şirketiz.
+                  Hastaları ve doktorları bir araya getirerek sağlık hizmetlerini kolaylaştırmak hedefimizdir.
                   </p>
                   <ul className="list-none mt-6">
                     <li className="py-2">

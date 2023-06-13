@@ -24,39 +24,39 @@ export default function Contact() {
           <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
             <div className="flex  text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold text-white">İşveren Hesabı Oluştur</h2>
+                <h2 className="text-4xl font-semibold text-white">İletişim Hesabı Oluştur</h2>
                 <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-                  İşveren hesabı oluşturarak işverenlere özgü özellikleri kullanma fırsatı yakalayabilirsin
+                  Bize ulaşarak uygulamamızı geliştirmeye katkıda bulunabilirsiniz
                 </p>
               </div>
             </div>
             <div className="flex  mt-12 justify-center">
               <div className="w-full lg:w-3/12 px-4 text-center">
-                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                {/* <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-medal text-xl"></i>
-                </div>
-                <h6 className="text-xl mt-5 font-semibold text-white">Ek Hizmetler</h6>
+                </div> */}
+                {/* <h6 className="text-xl mt-5 font-semibold text-white">Ek Hizmetler</h6>
                 <p className="mt-2 mb-4 text-gray-500">
                   Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
-                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                {/* <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-poll text-xl"></i>
-                </div>
-                <h5 className="text-xl mt-5 font-semibold text-white">Seçkin Adayları Görüntüleme</h5>
+                </div> */}
+                {/* <h5 className="text-xl mt-5 font-semibold text-white">Seçkin Adayları Görüntüleme</h5>
                 <p className="mt-2 mb-4 text-gray-500">
                   Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
-                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                {/* <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-lightbulb text-xl"></i>
-                </div>
-                <h5 className="text-xl mt-5 font-semibold text-white">Hızlı İlan Oluşturma Seçenekleri</h5>
+                </div> */}
+                {/* <h5 className="text-xl mt-5 font-semibold text-white">Hızlı İlan Oluşturma Seçenekleri</h5>
                 <p className="mt-2 mb-4 text-gray-500">
                   Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

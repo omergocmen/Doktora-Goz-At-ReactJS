@@ -21,9 +21,8 @@ export default function Header({imageUrl}) {
         <div className="items-center flex ">
           <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
             <div className="pr-12 text-white">
-              <h1 className="font-semibold text-5xl">Aradığın Tüm Eğitim İçeriklerini Burada Bulacaksın Hadi Hemen Eğitime Başla </h1>
-              <p className="font-semibold mt-4 text-lg">En kaliteli eğitim içeriklerini en uygun fiyatlarda bulabilirsin.</p>
-              <p className="font-semibold mt-4 text-lg">Haydi sen de sana uygun olabilecek Eğtimleri filtrele, bul ve hemen satın al.</p>
+              <h1 className="font-semibold text-5xl">Doktorlar ve hastalar için ortak bir buluşma noktası olarak hizmet veriyoruz.  </h1>
+              <p className="font-semibold mt-4 text-lg">İhtiyaç duyduğunuz sağlık hizmetlerini burada keşfedin</p>
             </div>
           </div>
         </div>

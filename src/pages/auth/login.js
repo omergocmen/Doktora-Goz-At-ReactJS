@@ -67,8 +67,8 @@ export default function Login() {
                 <TabView>
                     <TabPanel header="Hasta" leftIcon="pi pi-user mr-2">
                         <Heading text="Hasta Giriş" />
+                        {/* <h1 className="text-gray-800 font-bold text-3xl mb-5">Hasta Giriş</h1> */}
                         <form className="bg-white w-[300px]" onSubmit={handleSubmit(onSubmitPatient)}>
-                            <h1 className="text-gray-800 font-bold text-3xl mb-5">Hoşgeldin :)</h1>
                             <p className="text-sm font-normal text-gray-600 mb-7">Giriş Yap ve Hemen Destek Almaya Başla</p>
                             <div className="text-left">
                                 <fieldset className="flex flex-col">
@@ -104,7 +104,6 @@ export default function Login() {
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
                         <Heading text="Doktor Giriş" />
                         <form className="bg-white w-[300px]" onSubmit={handleSubmit(onSubmitDoctor)}>
-                            <h1 className="text-gray-800 font-bold text-3xl mb-5">Hoşgeldin :)</h1>
                             <p className="text-sm font-normal text-gray-600 mb-7">Giriş Yap ve Hemen Destek Almaya Başla</p>
                             <div className="text-left">
                                 <fieldset className="flex flex-col">
@@ -134,8 +133,6 @@ export default function Login() {
                             </div>
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
-                            <BaseButton className="w-full" text={"Giriş Yap"} />
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
