@@ -6,10 +6,9 @@ import HomeContainer from "./routes/homeContainer";
 import PublicContainer from "./routes/publicContainer";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import "primereact/resources/themes/lara-light-indigo/theme.css";     
 import "primereact/resources/primereact.min.css";  
 import 'primeflex/primeflex.css';
-
+import "primereact/resources/themes/lara-light-blue/theme.css";     
 
 function App() {
   
@@ -18,7 +17,6 @@ function App() {
     client_secret: "secret",
     grant_type: "client_credentials"
   });
-
 
 
   return (

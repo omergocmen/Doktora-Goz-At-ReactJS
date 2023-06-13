@@ -12,6 +12,7 @@ import DoctorDetail from "../pages/doctor/doctorDetail";
 import Doctors from "../pages/doctor/doctors";
 import Meets from "../pages/meet/meet";
 import MeetDetil from "../pages/meet/meetDetail";
+import Payment from "../pages/payment/payment";
 
 
 export default function HomeContainer() {
@@ -24,6 +25,7 @@ export default function HomeContainer() {
                     {isAuthentication && (
                         <>
                             <Route exact path="/cartdetail" element={<CartDetail />} />
+                            <Route exact path="/payment/:id" element={<Payment />} />
                             <Route exact path="/appointments/:id" element={<Appointments />} />
                             <Route exact path="/meets/:id" element={<Meets />} />
                             <Route exact path="/meetdetail/:id" element={<MeetDetil />} />

@@ -27,6 +27,7 @@ export default function Login() {
         login(data)
             .then((response) => {
                 toast.success(Messages.userloginsuccess);
+                localStorage.setItem("userType","Patient")
                 localStorage.setItem("userToken", response.data.data.token);
                 navigate("/home");
             })
@@ -39,6 +40,8 @@ export default function Login() {
       login(data)
           .then((response) => {
               toast.success(Messages.userloginsuccess);
+              toast.success("Giriş Başarılı");
+              localStorage.setItem("userType","Doctor")
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
           })
@@ -95,6 +98,7 @@ export default function Login() {
                             </div>
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
@@ -130,6 +134,9 @@ export default function Login() {
                             </div>
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
+                            <BaseButton className="w-full" text={"Giriş Yap"} />
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">Şifreni mi unuttun?</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                 </TabView>

@@ -67,7 +67,6 @@ export default function Navbar() {
                     <div className="order-2 md:order-3 flex items-center" id="nav-content">
                         {isAuthentication ? (
                             <>
-                                <Cart />
                                 <div className="mx-10">
                                     <Menu as="div" className="relative inline-block text-left">
                                         <div>

@@ -25,6 +25,7 @@ export const getAllAppointment = createAsyncThunk("appointment/all", async () =>
         });
 });
 
+
 export const createAppointment = createAsyncThunk("appointment/create", async (data) => {
     return baseAxios
         .post("appointment/create",data)
@@ -79,8 +80,8 @@ const appointmentSlice = createSlice({
     name: "appointment",
     initialState: {
         appointments: [] ,
-        doctorAppointmentDates: []
-
+        doctorAppointmentDates: [],
+        activePage:0
     },
     extraReducers: {
         [getAllAppointment.fulfilled]: (state, action) => {
@@ -92,7 +93,7 @@ const appointmentSlice = createSlice({
             if (action.payload) {
                 state.doctorAppointmentDates = action.payload.data;
             }
-        },
+        }
     },
 });
 

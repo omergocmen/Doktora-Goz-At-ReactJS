@@ -4,7 +4,7 @@ export default function TextareaFor({ type, register, errors, ...props }) {
         <textarea
             {...props}
             {...register}
-            className={`border-[1px] border-grey-light-3 rounded-md py-[8px] px-[10px] placeholder-grey-dark-2 outline-none resize-none ${props.className} ${errors[register.name] ? `!border-red !text-red !placeholder-red` : ``} ${additionalStyle}`}
+            className={`border-[1px] border-grey-light-3 rounded-md h-[120px] py-[8px] px-[10px] placeholder-grey-dark-2 outline-none resize-none ${props.className} ${errors[register.name] ? `!border-red !text-red !placeholder-red` : ``} ${additionalStyle}`}
             autoComplete="off"
         />
     )
