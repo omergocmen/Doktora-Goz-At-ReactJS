@@ -2,7 +2,7 @@ import { Rating } from "primereact/rating";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import BaseButton from "../../shared/components/baseButton";
+import LinkButton from "../../shared/components/linkButton";
 import { getDoctorById } from "../../store/doctorSlice";
 
 export default function DoctorDetail() {
@@ -53,7 +53,7 @@ export default function DoctorDetail() {
                                                         width="52"
                                                         height="52"
                                                         fill="currentColor"
-                                                        class="bi bi-bank"
+                                                        className="bi bi-bank"
                                                         viewBox="0 0 16 16"
                                                     >
                                                         <path d="M8 .95 14.61 4h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 
@@ -113,7 +113,7 @@ export default function DoctorDetail() {
                             </div>
                         </div>
                         <div className="flex mt-10">
-                            <BaseButton className="w-[300px]" onClick={saveBasketClick} text={"Randevu Talebinde Bulun"} />
+                            <LinkButton href={"/home/payment/"+params.id} className="w-[300px] text-center" onClick={saveBasketClick} text={"Randevu Talebinde Bulun"} />
                         </div>
                     </div>
                 </div>

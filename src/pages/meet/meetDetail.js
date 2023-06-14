@@ -62,7 +62,7 @@ export default function MeetDetail() {
     }
 
     return (
-        <div className="w-3/4 mx-auto mb-20">
+        <div className="w-3/4 mx-auto mb-20 min-w-[900px]">
             <div className="container mx-auto px-4 my-10">
                 <div className="items-center flex">
                     <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
@@ -137,18 +137,12 @@ export default function MeetDetail() {
                                             </span>
                                         </div>
                                         <div>
-                                            <h4 className="text-gray-600"> <b>Toplantı Katılımcıları :</b> </h4>
-                                            <h4 className="text-gray-600"> {doctor + " , " + patient} </h4>
+                                            <h4 className="text-gray-600"><b>Toplantı Katılımcıları:</b> {doctor + " , " + patient} </h4>
                                         </div>
                                     </div>
                                 </li>
                                 <li className="py-2">
-                                    <div className="flex items-center">
-                                        <div>
-                                            <span className="text-xs font-semibold inline-block py-2 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
-                                                <i className="far fa-paper-plane"></i>
-                                            </span>
-                                        </div>
+                                    <div className="flex items-center mt-4">
                                         <div>
 
                                             { (role == "Patient") ?
@@ -199,9 +193,9 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                <div className="flex mb-4">
+                <div className="flex mb-4 px-4">
                     <span className="flex items-center">
-                        <span className="text-gray-600">Doktoru Değerlendir</span>
+                        <span className="text-bold">Doktoru Değerlendir</span>
                     </span>
                     <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                         <Rating value={value} onChange={(e) => setValue(e.value)} cancel={false} />
@@ -211,9 +205,7 @@ export default function MeetDetail() {
                     </span>
                 </div>
             </div>
-
-
-            <div className="input-section w-full">
+            <div className="input-section w-full px-4">
                 <div className="mx-auto px-4 text-gray-600">
                     <div className="mt-12 mx-auto">
                         <div>
@@ -229,7 +221,7 @@ export default function MeetDetail() {
                     </div>
                 </div>
             </div>
-            <div className="comment-section">
+            <div className="comment-section px-4">
                 <section className="mt-12 text-left mx-auto">
                     <ul className="mt-12 space-y-3 px-4">
                         {comments.map((item, idx) => (

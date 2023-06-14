@@ -162,7 +162,7 @@ export default function Appointment() {
         return (
             <>
                 <IconButton className="dark self-baseline pi pi-times" onClick={() => showModal(option)} />
-                <LinkIcon to={"/home/meetdetail/" + option.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />
+                {option.meet && <LinkIcon to={"/home/meetdetail/" + option.meet.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />}
             </>
         );
     };
