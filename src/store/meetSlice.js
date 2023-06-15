@@ -26,7 +26,7 @@ export const getMeetingById = createAsyncThunk("meeting/getmeetingbyid", async (
     });
 
 
-export const complateMeet = createAsyncThunk("meeting/getmeetingbyid/complate", async (id, data) => {
+export const complateMeet = createAsyncThunk("meeting/getmeetingbyid/complate", async ({id, data}) => {
     return baseAxios
         .post("meeting/"+id+"/complate",data)
         .then((response) => {
