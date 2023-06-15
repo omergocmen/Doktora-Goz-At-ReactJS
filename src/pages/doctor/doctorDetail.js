@@ -1,11 +1,16 @@
+import { Button } from 'primereact/button';
 import { Rating } from "primereact/rating";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { InfoMessage } from "../../constants/infoMessage";
 import LinkButton from "../../shared/components/linkButton";
 import { getDoctorById } from "../../store/doctorSlice";
 
 export default function DoctorDetail() {
+    const tooltipOptions = {
+        position: 'bottom'
+      };
     const education = [
         {
             text: "Lisans",
@@ -113,6 +118,12 @@ export default function DoctorDetail() {
                         </div>
                         <div className="flex mt-10">
                             <LinkButton href={"/home/payment/"+params.id} className="w-[300px] text-center" text={"Randevu Talebinde Bulun"} />
+                            <Button
+                            icon="pi pi-info-circle"
+                            tooltip={InfoMessage.loginneededinfo}
+                            tooltipOptions={tooltipOptions}
+                            className='button-tooltip'
+                            />
                         </div>
                     </div>
                 </div>

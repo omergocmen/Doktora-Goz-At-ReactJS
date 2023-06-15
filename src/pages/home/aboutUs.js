@@ -1,8 +1,9 @@
 import React from "react";
-import user1 from "../../assets/images/user1.jpg";
-import user2 from "../../assets/images/user2.jpg";
-import user3 from "../../assets/images/user3.jpg";
-import user4 from "../../assets/images/user4.jpg";
+import Barış from "../../assets/images/Barış.jpg";
+import Berkay from "../../assets/images/Berkay.jpg";
+import Fatih from "../../assets/images/Fatih.png";
+import Yiğit from "../../assets/images/Yiğit.jpg";
+import Ömer from "../../assets/images/Ömer.jpg";
 import Header from "../../partials/header";
 
 export default function AboutUs() {
@@ -91,89 +92,50 @@ export default function AboutUs() {
             <div className="flex  justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">Uygulamanın Geliştiricileri</h2>
-                <p className="text-lg leading-relaxed m-4 text-gray-600">
-                  Kahramanlarımıza borçluyuz; ekibimiz, geliştirilerimiz, test geliştiricilerimiz ve analistlerimiz :)
-                </p>
               </div>
             </div>
             <div className="flex ">
               <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
                 <div className="px-6">
-                  <img alt="..." src={user1} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
+                  <img alt="..." src={Berkay} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Ryan Tompson</h5>
-                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">Web Developer</p>
-                    <div className="mt-6">
-                      <button className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-twitter"></i>
-                      </button>
-                      <button className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-facebook-f"></i>
-                      </button>
-                      <button className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-dribbble"></i>
-                      </button>
-                    </div>
+                    <h5 className="text-xl font-bold">Berkay Babataş</h5>
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
                 <div className="px-6">
-                  <img alt="..." src={user2} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
+                  <img alt="..." src={Ömer} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Romina Hadid</h5>
-                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">Marketing Specialist</p>
-                    <div className="mt-6">
-                      <button className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-google"></i>
-                      </button>
-                      <button className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-facebook-f"></i>
-                      </button>
-                    </div>
+                    <h5 className="text-xl font-bold">Ömer Göçmen</h5>
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
                 <div className="px-6">
-                  <img alt="..." src={user3} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
+                  <img alt="..." src={Fatih} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Alexa Smith</h5>
-                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">UI/UX Designer</p>
-                    <div className="mt-6">
-                      <button className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-google"></i>
-                      </button>
-                      <button className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-twitter"></i>
-                      </button>
-                      <button className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-instagram"></i>
-                      </button>
-                    </div>
+                    <h5 className="text-xl font-bold">Fatih Tufan</h5>
+                    
+                    
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
                 <div className="px-6">
-                  <img alt="..." src={user4} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
+                  <img alt="..." src={Yiğit} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Jenna Kardi</h5>
-                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">Founder and CEO</p>
-                    <div className="mt-6">
-                      <button className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-dribbble"></i>
-                      </button>
-                      <button className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-google"></i>
-                      </button>
-                      <button className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-twitter"></i>
-                      </button>
-                      <button className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1" type="button">
-                        <i className="fab fa-instagram"></i>
-                      </button>
-                    </div>
+                    <h5 className="text-xl font-bold">Yiğit Yılmaz</h5>
+                    
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                <div className="px-6">
+                  <img alt="..." src={Barış} className="shadow-lg rounded-full max-w-full mx-auto" style={{ maxWidth: "120px" }} />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">Hüseyin Barış Yaşık</h5>
+                    
                   </div>
                 </div>
               </div>

@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
 import "primeflex/primeflex.css";
-import Header from "../../partials/header";
 import { Button } from "primereact/button";
-import { Skeleton } from "primereact/skeleton";
 import { DataView, DataViewLayoutOptions } from "primereact/dataview";
-import { Rating } from "primereact/rating";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllBranch } from "../../store/branchSlice";
-import { useNavigate } from "react-router-dom";
-import { getAllDoctors } from "../../store/doctorSlice";
 import { Dropdown } from "primereact/dropdown";
+import { Rating } from "primereact/rating";
+import { Skeleton } from "primereact/skeleton";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { InfoMessage } from "../../constants/infoMessage";
+import Header from "../../partials/header";
+import { getAllBranch } from "../../store/branchSlice";
+import { getAllDoctors } from "../../store/doctorSlice";
 
 export default function Doctors() {
     const [layout, setLayout] = useState("grid");
@@ -178,6 +179,9 @@ export default function Doctors() {
         { label: "En Yüksek Puan", value: "!point" },
         { label: "En Düşük Puan", value: "point" },
     ];
+    const tooltipOptions = {
+        position: 'bottom'
+        };
 
     const onSortChange = (event) => {
         const value = event.value;
@@ -204,6 +208,13 @@ export default function Doctors() {
                     />
                     <Dropdown className="mx-2" showClear options={branch} value={branchKey} optionLabel="name" placeholder="Uzmanlık Alanı Seç" onChange={onBranchChange} />
                     {/* <Button icon="pi pi-times" onClick={()=>setFilteredDoctor(doctors)} rounded severity="danger" aria-label="Cancel" /> */}
+                    
+                            <Button
+                            icon="pi pi-info-circle"
+                            tooltip={InfoMessage.filtersinfo}
+                            tooltipOptions={tooltipOptions}
+                            className='button-tooltip'
+                            />
                 </div>
                 <div className="col-6" style={{ textAlign: "right" }}>
                     <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />

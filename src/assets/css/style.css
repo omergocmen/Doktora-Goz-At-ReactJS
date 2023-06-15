@@ -36,3 +36,10 @@ body {
 .p-disabled::before{
   border-top: 2px solid wheat !important;
 }
+.button-tooltip {
+  border-radius: 100%;
+  margin-left: 8px; 
+  font-size: 14px;
+  color: #999999;
+  margin-top: 20px;
+}
