@@ -27,7 +27,7 @@ export default function Login() {
         login(data)
             .then((response) => {
                 toast.success(Messages.userloginsuccess);
-                localStorage.setItem("userType","Patient")
+                localStorage.setItem("userType",response.data.data.userType)
                 localStorage.setItem("userToken", response.data.data.token);
                 navigate("/home");
             })
@@ -40,7 +40,7 @@ export default function Login() {
       login(data)
           .then((response) => {
               toast.success(Messages.userloginsuccess);
-              localStorage.setItem("userType","Doctor")
+              localStorage.setItem("userType",response.data.data.userType)
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
           })
