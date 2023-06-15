@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BaseButton from "../../shared/components/baseButton";
-import {complateMeet, getMeetingById, getMeetingComments, sendComment} from "../../store/meetSlice";
-import {sendPoint} from "../../store/scoreSlice";
+import { complateMeet, getMeetingById, getMeetingComments, sendComment } from "../../store/meetSlice";
+import { sendPoint } from "../../store/scoreSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {Link, useParams} from "react-router-dom";
-import {Rating} from "primereact/rating";
-import {toast} from "react-toastify";
+import { Link, useParams } from "react-router-dom";
+import { Rating } from "primereact/rating";
+import { toast } from "react-toastify";
 import moment from "moment";
 
 export default function MeetDetail() {
@@ -22,71 +22,66 @@ export default function MeetDetail() {
     const role = localStorage.getItem("userType");
     const [visible, setVisible] = useState(false);
 
-
     let currentDate = new Date();
     const timeZone = 3;
-    currentDate.setTime( currentDate.getTime() + timeZone *60 *60 *1000);
-
+    currentDate.setTime(currentDate.getTime() + timeZone * 60 * 60 * 1000);
 
     useEffect(() => {
         setVisible(meet.isVoted ? true : false);
     }, [JSON.stringify(meet)]);
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(getMeetingById(params.id));
         dispatch(getMeetingComments(params.id));
     }, []);
 
-
     const users = meet.appointment;
-    const diagnosisReportTime = moment(users?.date_time).add(30, 'm').toDate().toJSON();
+    const diagnosisReportTime = moment(users?.date_time).add(30, "m").toDate().toJSON();
     const doctor = users?.doctor.title + " " + users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
 
     const saveNewComment = () => {
         const newComment = {
-            comment: commentMessage.current.value
+            comment: commentMessage.current.value,
         };
-        dispatch(sendComment(
-            {
+        dispatch(
+            sendComment({
                 id: params.id,
-                data: newComment
-                }
-        ));
-    }
+                data: newComment,
+            })
+        );
+    };
 
     const meetingNotStartError = () => {
         toast.warning("Toplantı Henüz başlamadı");
-    }
-
+    };
 
     const setDiagnosisReport = () => {
         const newDiagnosisReport = {
-            diagnosisReport: diagnosisReport.current.value
+            diagnosisReport: diagnosisReport.current.value,
         };
-        dispatch(complateMeet(
-            {
+        dispatch(
+            complateMeet({
                 id: params.id,
-                data: newDiagnosisReport
-            }
-        ));
-    }
+                data: newDiagnosisReport,
+            })
+        );
+    };
 
     const sendRating = () => {
         setVisible(true);
         const newPoint = {
             point: value,
-            meetId: parseInt(params.id)
+            meetId: parseInt(params.id),
         };
 
-        dispatch(sendPoint(
-            {
+        dispatch(
+            sendPoint({
                 id: users?.doctor.user.id,
-                data: newPoint
-            }
-        ));
-
-    }
+                data: newPoint,
+            })
+        );
+    };
 
     return (
         <div className="w-3/4 mx-auto mb-20 min-w-[900px]">
@@ -109,7 +104,7 @@ export default function MeetDetail() {
                                 Toplantı Linkiniz Aşağıdadır, lütfen toplantı sonrası notlarını yazmayı ve doktoru puanlamayı unutma, geri dönüşlerin
                                 bizim için önemli. İyi Görüşmeler Dileriz, Sağlıklı Günler :)
                             </p>
-                            <ul className="list-none mt-6">
+                            <ul className="list-none mt-6 text-left">
                                 <li className="py-2">
                                     <div className="flex items-center">
                                         <div>
@@ -163,55 +158,54 @@ export default function MeetDetail() {
                                             </span>
                                         </div>
                                         <div>
-                                            <h4 className="text-gray-600"><b>Toplantı Katılımcıları:</b> {doctor + " , " + patient} </h4>
+                                            <h4 className="text-gray-600">
+                                                <b>Toplantı Katılımcıları:</b> {doctor + " , " + patient}{" "}
+                                            </h4>
                                         </div>
                                     </div>
                                 </li>
                                 <li className="py-2">
                                     <div className="flex items-center mt-4">
                                         <div>
-
-                                            { (role == "PATIENT") ?
+                                            {role == "PATIENT" ? (
                                                 <div>
-                                                        { (users?.date_time > currentDate.toJSON()) ?
-                                                            <Link>
-                                                                <button
-                                                                    onClick={meetingNotStartError}
-                                                                    className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
-                                                                    Toplantıya Katıl
-                                                                </button>
-                                                            </Link>
-                                                            :
-                                                            <Link to={meet.patient_meet_link}>
-                                                                <button
-                                                                    className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
-                                                                    Toplantıya Katıl
-                                                                </button>
-                                                            </Link>
-                                                        }
-
-
-                                                </div>
-                                                :
-                                                <div>
-                                                    { (users?.date_time > currentDate.toJSON()) ?
+                                                    {users?.date_time > currentDate.toJSON() ? (
                                                         <Link>
                                                             <button
                                                                 onClick={meetingNotStartError}
-                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full"
+                                                            >
                                                                 Toplantıya Katıl
                                                             </button>
                                                         </Link>
-                                                        :
-                                                        <Link to={meet.doctor_meet_link}>
-                                                            <button
-                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                    ) : (
+                                                        <Link to={meet.patient_meet_link}>
+                                                            <button className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
                                                                 Toplantıya Katıl
                                                             </button>
                                                         </Link>
-                                                    }
+                                                    )}
                                                 </div>
-                                            }
+                                            ) : (
+                                                <div>
+                                                    {users?.date_time > currentDate.toJSON() ? (
+                                                        <Link>
+                                                            <button
+                                                                onClick={meetingNotStartError}
+                                                                className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full"
+                                                            >
+                                                                Toplantıya Katıl
+                                                            </button>
+                                                        </Link>
+                                                    ) : (
+                                                        <Link to={meet.doctor_meet_link}>
+                                                            <button className="bg-pink-200 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                                                                Toplantıya Katıl
+                                                            </button>
+                                                        </Link>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </li>
@@ -219,52 +213,45 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                { (diagnosisReportTime < currentDate.toJSON()) ?
-                    (role == "PATIENT") ?
+                {diagnosisReportTime < currentDate.toJSON() 
+                ? (role == "PATIENT" ? (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
                                 <span className="text-bold">Doktorun Raporu: </span>
                             </span>
                             <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                 <span className="flex ml-3 pl-3 py-2">
-                                {meet.diagnosis_report ? meet.diagnosis_report : "Doktor Henüz Rapor Eklemedi!" }
+                                    {meet.diagnosis_report ? meet.diagnosis_report : "Doktor Henüz Rapor Eklemedi!"}
                                 </span>
                             </span>
                         </div>
-                        :
+                    ) : (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
                                 <span className="text-bold">Doktorun Raporu:</span>
                             </span>
                             <span className="flex ml-3 pl-3 py-2">
-
-                                    {meet.diagnosis_report ? meet.diagnosis_report
-                                        :
-                                        <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-                                            <textarea
-                                                placeholder="Mesajınız..."
-                                                ref={diagnosisReport}
-                                                required
-                                                className="w-full border-2 border-black
-                            mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                                            ></textarea>
-                                <span className="flex ml-3 pl-3 py-2">
-                                    <BaseButton text={"Raporu Gönder"} onClick={setDiagnosisReport}/>
-                                </span>
+                                {!meet.diagnosis_report ? (
+                                    <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                                        <textarea
+                                            placeholder="Mesajınız..."
+                                            ref={diagnosisReport}
+                                            required
+                                            className="w-full border-2 border-black mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                        ></textarea>
+                                        <span className="flex ml-3 pl-3 py-2">
+                                            <BaseButton text={"Raporu Gönder"} onClick={setDiagnosisReport} />
+                                        </span>
+                                    </span>
+                                ) : (
+                                    meet.diagnosis_report
+                                )}
                             </span>
-
-                                    }
-                            </span>
-
-
-
-
                         </div>
-                    :
-                    null
-                }
-                { (users?.date_time < currentDate.toJSON() && role == "PATIENT") ?
-                    (visible == false) ?
+                    )
+                ) : null}
+                {users?.date_time < currentDate.toJSON() && role == "PATIENT" ? (
+                    visible == false ? (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
                                 <span className="text-bold">Doktoru Değerlendir</span>
@@ -272,25 +259,23 @@ export default function MeetDetail() {
                             <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                 <Rating value={value} onChange={(e) => setValue(e.value)} cancel={false} />
                                 <span className="flex ml-3 pl-3 py-2">
-                                <BaseButton text={"Gönder"} onClick={sendRating}/>
+                                    <BaseButton text={"Gönder"} onClick={sendRating} />
                                 </span>
                             </span>
                         </div>
-                        :
+                    ) : (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
                                 <span className="text-bold">Doktoru Değerlendirildi!</span>
                             </span>
                             <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                 <span className="flex mr-6 pl-3 py-2">
-                                <BaseButton text={"Yeniden Puanla"} onClick={()=> setVisible(false)}/>
+                                    <BaseButton text={"Yeniden Puanla"} onClick={() => setVisible(false)} />
                                 </span>
                             </span>
                         </div>
-                    :
-                    null
-                }
-
+                    )
+                ) : null}
             </div>
             <div className="input-section w-full px-4">
                 <div className="mx-auto px-4 text-gray-600">
@@ -316,10 +301,7 @@ export default function MeetDetail() {
                                 <a href={item.href}>
                                     <div>
                                         <div className="justify-between sm:flex">
-                                            <img
-                                                src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
-                                                className="w-16 rounded-full"
-                                                alt="Avatar"/>
+                                            <img src="https://tecdn.b-cdn.net/img/new/avatars/2.webp" className="w-16 rounded-full" alt="Avatar" />
                                             <div className="flex-1 ml-3">
                                                 <h3 className="text-xl font-medium">{item.user.name + " " + item.user.surname}</h3>
                                                 <p className="text-gray-500 mt-2 pr-2">{item.comment}</p>

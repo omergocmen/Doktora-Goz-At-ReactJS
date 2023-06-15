@@ -66,7 +66,7 @@ export const approveAppointment = createAsyncThunk("appointment/appointmentid/ap
     return baseAxios
         .post("appointment/" + id + "/approve")
         .then((response) => {
-            toast.success(Messages.meeti);
+            toast.success(Messages.meetingApproved);
             return response.data;
         })
         .catch((err) => {

@@ -166,7 +166,7 @@ export default function Appointment() {
             <>
                 <IconButton className="dark self-baseline pi pi-times" onClick={() => showModal(option)} />
                 {option.meet && <LinkIcon to={"/home/meetdetail/" + option.meet.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />}
-                {option.state=="KABUL BEKLİYOR" && localStorage.getItem("userType")=="Doctor" && <IconButton onClick={()=>ApproveAppointmentFunc(option.id)} className="dark mx-2 self-baseline pi pi-check" />}
+                {option.state=="KABUL BEKLİYOR" && localStorage.getItem("userType")=="DOCTOR" && <IconButton onClick={()=>ApproveAppointmentFunc(option.id)} className="dark mx-2 self-baseline pi pi-check" />}
             </>
         );
     };
