@@ -54,7 +54,7 @@ export const cancelAppointment = createAsyncThunk("appointment/appointmentid/can
     return baseAxios
         .post("appointment/" + id + "/cancel")
         .then((response) => {
-            toast.success(Messages.meetingcancelled);
+            toast.success(Messages.meetingApproved);
             return response.data;
         })
         .catch((err) => {
@@ -66,7 +66,7 @@ export const approveAppointment = createAsyncThunk("appointment/appointmentid/ap
     return baseAxios
         .post("appointment/" + id + "/approve")
         .then((response) => {
-            toast.success(Messages.meetingcancelled);
+            toast.success(Messages.meeti);
             return response.data;
         })
         .catch((err) => {

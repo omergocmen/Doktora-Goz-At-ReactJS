@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
-import { getAllAppointment, cancelAppointment, rejectAppointment } from "../../store/appointmentSlice";
+import { getAllAppointment, cancelAppointment, rejectAppointment, approveAppointment } from "../../store/appointmentSlice";
 import { Badge } from "primereact/badge";
 import { Dropdown } from "primereact/dropdown";
 import LinkIcon from "../../shared/components/linkIcon";
@@ -158,11 +158,15 @@ export default function Appointment() {
             setVisible(true);
         }
     };
+    const ApproveAppointmentFunc=(id)=>{
+        dispatch(approveAppointment(id))
+    }
     const settingTemplate = (option) => {
         return (
             <>
                 <IconButton className="dark self-baseline pi pi-times" onClick={() => showModal(option)} />
                 {option.meet && <LinkIcon to={"/home/meetdetail/" + option.meet.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />}
+                {option.state=="KABUL BEKLİYOR" && localStorage.getItem("userType")=="Doctor" && <IconButton onClick={()=>ApproveAppointmentFunc(option.id)} className="dark mx-2 self-baseline pi pi-check" />}
             </>
         );
     };

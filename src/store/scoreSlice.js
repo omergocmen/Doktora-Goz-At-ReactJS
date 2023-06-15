@@ -3,7 +3,6 @@ import baseAxios from "../helpers/baseAxios";
 import {toast} from "react-toastify";
 
 export const sendPoint = createAsyncThunk("scoring/getdoctorbyid/send", async ({id, data}) => {
-    console.log(data);
     return baseAxios
         .post("scoring/"+id+"/send",data)
         .then((response) => {

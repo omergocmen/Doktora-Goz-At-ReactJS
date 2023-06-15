@@ -14,7 +14,6 @@ export default function MeetDetail() {
 
     const [value, setValue] = useState(0);
     const meet = useSelector((state) => state.meet.meet);
-    const meets = useSelector((state) => state.meet.meets);
     const comments = useSelector((state) => state.meet.getMeetingComments);
     const commentMessage = useRef();
     const role = localStorage.getItem("userType");
@@ -33,7 +32,6 @@ export default function MeetDetail() {
     useEffect( () => {
         dispatch(getMeetingById(params.id));
         dispatch(getMeetingComments(params.id));
-
     }, []);
 
 
@@ -56,7 +54,6 @@ export default function MeetDetail() {
     const meetingNotStartError = () => {
         toast.warning("Toplantı Henüz başlamadı");
     }
-
 
     const sendRating = () => {
         setVisible(true);
@@ -120,7 +117,6 @@ export default function MeetDetail() {
                                         </div>
                                         <div>
                                             <h4 className="text-gray-600">
-                                                {" "}
                                                 Doktorun size yol gösterip fikir vereceğinden şüphe duymuyoruz, unutma bu uygulama seni rahatsızlığın
                                                 konusunda aydınlatmak ve fikir vermek amacıyla tasarlandı.
                                             </h4>

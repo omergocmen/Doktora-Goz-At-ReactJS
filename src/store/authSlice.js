@@ -15,10 +15,18 @@ export const registerDoctor = createAsyncThunk("authentication/register/doctor",
         toast.success(Messages.creationsuccess)
         return response.data.data;
     }).catch(err=>{
-        toast.error(err.message)
+        toast.error("Kayıt işlemi Hatalı Lütfen Bilgilerinizin Geçerli Olduğuna Dikkat Edin")
     });
 });
 
+export const registerPatient = createAsyncThunk("authentication/register/patient", async (data) => {
+    return baseAxios.post("authentication/register/patient", data).then((response) => {
+        toast.success(Messages.creationsuccess)
+        return response.data.data;
+    }).catch(err=>{
+        toast.error("Kayıt işlemi Hatalı Lütfen Bilgilerinizin Geçerli Olduğuna Dikkat Edin")
+    });
+});
 
 
 const authSlice = createSlice({

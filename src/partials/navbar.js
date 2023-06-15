@@ -132,7 +132,7 @@ export default function Navbar() {
                             </>
                         ) : (
                             <div className="mx-10">
-                                <LinkButton href="/login" text="Giriş Yap" />
+                                <LinkButton href="/home/login" text="Giriş Yap" />
                             </div>
                         )}
                     </div>

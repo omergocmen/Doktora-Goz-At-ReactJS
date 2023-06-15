@@ -40,7 +40,6 @@ export default function Login() {
       login(data)
           .then((response) => {
               toast.success(Messages.userloginsuccess);
-              toast.success("Giriş Başarılı");
               localStorage.setItem("userType","Doctor")
               localStorage.setItem("userToken", response.data.data.token);
               navigate("/home");
@@ -59,7 +58,7 @@ export default function Login() {
     }, [JSON.stringify(isAuthentication)]);
 
     return (
-        <div className="h-screen md:flex">
+        <div className="h-screen w-full md:flex">
             <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr justify-around items-center hidden">
                 <img width={"100%"} src={loginimg} alt="login image" />
             </div>
@@ -98,7 +97,7 @@ export default function Login() {
                             </div>
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
@@ -133,7 +132,7 @@ export default function Login() {
                             </div>
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/register") }>Kayıt ol</span>
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/register") }>Kayıt ol</span>
                         </form>
                     </TabPanel>
                 </TabView>

@@ -13,7 +13,8 @@ import Doctors from "../pages/doctor/doctors";
 import Meets from "../pages/meet/meet";
 import MeetDetil from "../pages/meet/meetDetail";
 import Payment from "../pages/payment/payment";
-
+import Login from '../pages/auth/login'
+import Register from '../pages/auth/register'
 
 export default function HomeContainer() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -32,6 +33,8 @@ export default function HomeContainer() {
                         </>
                     )}
                     <Route exact path="/" element={<Home />} />
+                    <Route exact path="/register" element={<Register />} />
+                    <Route exact path="/login" element={<Login />} />
                     <Route exact path="/contact" element={<Contact />} />
                     <Route exact path="/meetdetail/:id" element={<MeetDetail />} />
                     <Route exact path="/aboutus" element={<AboutUs />} />

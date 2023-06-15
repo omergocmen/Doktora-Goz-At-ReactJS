@@ -26,7 +26,6 @@ export default function DoctorDetail() {
     useEffect(() => {
         dispatch(getDoctorById(params.id));
     }, []);
-    const saveBasketClick = () => {};
 
     return (
         <section className="text-gray-700 body-font shadow-lg mt-10 overflow-hidden bg-white">
@@ -113,7 +112,7 @@ export default function DoctorDetail() {
                             </div>
                         </div>
                         <div className="flex mt-10">
-                            <LinkButton href={"/home/payment/"+params.id} className="w-[300px] text-center" onClick={saveBasketClick} text={"Randevu Talebinde Bulun"} />
+                            <LinkButton href={"/home/payment/"+params.id} className="w-[300px] text-center" text={"Randevu Talebinde Bulun"} />
                         </div>
                     </div>
                 </div>

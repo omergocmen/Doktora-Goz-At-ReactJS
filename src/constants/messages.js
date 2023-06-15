@@ -8,6 +8,7 @@ export const Messages  ={
     passwordforgot:"Şifrenizi mi unuttunuz? ",
     succesfullycreated:"Başarıyla Oluşturuldu. ",
     meetingdeclined:"Randevu Reddedildi. ",
+    meetingApproved:"Randevu Kabul Edildi. ",
     meetingcancelled:"Randevu İptal Edildi. ",
     creationsuccess: "Kayıt Başarılı. ",
     paymentsuccess: "Ödeme İşlemi Başarıyla Gerçekleşti ",
