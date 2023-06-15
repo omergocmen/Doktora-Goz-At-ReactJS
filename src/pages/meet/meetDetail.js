@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import BaseButton from "../../shared/components/baseButton";
-import {getMeetingById, getMeetingComments, sendComment} from "../../store/meetSlice";
+import {complateMeet, getMeetingById, getMeetingComments, sendComment} from "../../store/meetSlice";
 import {sendPoint} from "../../store/scoreSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {Rating} from "primereact/rating";
 import {toast} from "react-toastify";
+import moment from "moment";
 
 export default function MeetDetail() {
     const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export default function MeetDetail() {
     const meets = useSelector((state) => state.meet.meets);
     const comments = useSelector((state) => state.meet.getMeetingComments);
     const commentMessage = useRef();
+    const diagnosisReport = useRef();
+
     const role = localStorage.getItem("userType");
     const [visible, setVisible] = useState(false);
 
@@ -34,10 +37,12 @@ export default function MeetDetail() {
         dispatch(getMeetingById(params.id));
         dispatch(getMeetingComments(params.id));
 
+
     }, []);
 
 
     const users = meet.appointment;
+    const diagnosisReportTime = moment(users?.date_time).add(30, 'm').toDate().toJSON();
     const doctor = users?.doctor.title + " " + users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
 
@@ -55,6 +60,18 @@ export default function MeetDetail() {
 
     const meetingNotStartError = () => {
         toast.warning("Toplantı Henüz başlamadı");
+    }
+
+    const setDiagnosisReport = () => {
+        const newDiagnosisReport = {
+            diagnosisReport: diagnosisReport.current.value
+        };
+        dispatch(complateMeet(
+            {
+                id: params.id,
+                data: newDiagnosisReport
+            }
+        ));
     }
 
 
@@ -158,7 +175,7 @@ export default function MeetDetail() {
                                     <div className="flex items-center mt-4">
                                         <div>
 
-                                            { (role == "Patient") ?
+                                            { (role == "PATIENT") ?
                                                 <div>
                                                         { (users?.date_time > currentDate.toJSON()) ?
                                                             <Link>
@@ -206,7 +223,51 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                { (users?.date_time > currentDate.toJSON()) ?
+                { (diagnosisReportTime < currentDate.toJSON()) ?
+                    (role == "PATIENT") ?
+                        <div className="flex mb-4 px-4">
+                            <span className="flex items-center">
+                                <span className="text-bold">Doktorun Raporu: </span>
+                            </span>
+                            <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                                <span className="flex ml-3 pl-3 py-2">
+                                {meet.diagnosis_report ? meet.diagnosis_report : "Doktor Henüz Rapor Eklemedi!" }
+                                </span>
+                            </span>
+                        </div>
+                        :
+                        <div className="flex mb-4 px-4">
+                            <span className="flex items-center">
+                                <span className="text-bold">Doktorun Raporu:</span>
+                            </span>
+                            <span className="flex ml-3 pl-3 py-2">
+
+                                    {meet.diagnosis_report ? meet.diagnosis_report
+                                        :
+                                        <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                                            <textarea
+                                                placeholder="Mesajınız..."
+                                                ref={diagnosisReport}
+                                                required
+                                                className="w-full border-2 border-black
+                            mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                            ></textarea>
+                                <span className="flex ml-3 pl-3 py-2">
+                                    <BaseButton text={"Raporu Gönder"} onClick={setDiagnosisReport}/>
+                                </span>
+                            </span>
+
+                                    }
+                            </span>
+
+
+
+
+                        </div>
+                    :
+                    null
+                }
+                { (users?.date_time < currentDate.toJSON()) ?
                     (visible == false) ?
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
