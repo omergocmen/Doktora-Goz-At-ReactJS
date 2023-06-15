@@ -267,7 +267,7 @@ export default function MeetDetail() {
                     :
                     null
                 }
-                { (users?.date_time < currentDate.toJSON()) ?
+                { (users?.date_time < currentDate.toJSON() && role == "PATIENT") ?
                     (visible == false) ?
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
