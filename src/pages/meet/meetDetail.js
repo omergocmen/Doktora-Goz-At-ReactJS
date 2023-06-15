@@ -18,18 +18,30 @@ export default function MeetDetail() {
     const comments = useSelector((state) => state.meet.getMeetingComments);
     const commentMessage = useRef();
     const role = localStorage.getItem("userType");
+    const [visible, setVisible] = useState(false);
+
+
+    let currentDate = new Date();
+    const timeZone = 3;
+    currentDate.setTime( currentDate.getTime() + timeZone *60 *60 *1000);
 
 
     useEffect(() => {
+        setVisible(meet.isVoted ? true : false);
+    }, [JSON.stringify(meet)]);
+
+    useEffect( () => {
         dispatch(getMeetingById(params.id));
         dispatch(getMeetingComments(params.id));
+
     }, []);
+
+
     const users = meet.appointment;
     const doctor = users?.doctor.title + " " + users?.doctor.user.name + " " + users?.doctor.user.surname;
     const patient = users?.patient.user.name + " " + users?.patient.user.surname;
 
     const saveNewComment = () => {
-
         const newComment = {
             comment: commentMessage.current.value
         };
@@ -42,14 +54,15 @@ export default function MeetDetail() {
     }
 
     const meetingNotStartError = () => {
-        toast.error("Toplantı Henüz başlamadı");
+        toast.warning("Toplantı Henüz başlamadı");
     }
 
 
     const sendRating = () => {
-        console.log(value);
+        setVisible(true);
         const newPoint = {
-            point: value
+            point: value,
+            meetId: parseInt(params.id)
         };
 
         dispatch(sendPoint(
@@ -147,7 +160,7 @@ export default function MeetDetail() {
 
                                             { (role == "Patient") ?
                                                 <div>
-                                                        { (users?.date_time < Date()) ?
+                                                        { (users?.date_time > currentDate.toJSON()) ?
                                                             <Link>
                                                                 <button
                                                                     onClick={meetingNotStartError}
@@ -168,7 +181,7 @@ export default function MeetDetail() {
                                                 </div>
                                                 :
                                                 <div>
-                                                    { (users?.date_time < Date()) ?
+                                                    { (users?.date_time > currentDate.toJSON()) ?
                                                         <Link>
                                                             <button
                                                                 onClick={meetingNotStartError}
@@ -193,17 +206,34 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                <div className="flex mb-4 px-4">
-                    <span className="flex items-center">
-                        <span className="text-bold">Doktoru Değerlendir</span>
-                    </span>
-                    <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-                        <Rating value={value} onChange={(e) => setValue(e.value)} cancel={false} />
-                        <span className="flex ml-3 pl-3 py-2">
-                            <BaseButton text={"Gönder"} onClick={sendRating}/>
-                        </span>
-                    </span>
-                </div>
+                { (users?.date_time > currentDate.toJSON()) ?
+                    (visible == false) ?
+                        <div className="flex mb-4 px-4">
+                            <span className="flex items-center">
+                                <span className="text-bold">Doktoru Değerlendir</span>
+                            </span>
+                            <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                                <Rating value={value} onChange={(e) => setValue(e.value)} cancel={false} />
+                                <span className="flex ml-3 pl-3 py-2">
+                                <BaseButton text={"Gönder"} onClick={sendRating}/>
+                                </span>
+                            </span>
+                        </div>
+                        :
+                        <div className="flex mb-4 px-4">
+                            <span className="flex items-center">
+                                <span className="text-bold">Doktoru Değerlendirildi!</span>
+                            </span>
+                            <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
+                                <span className="flex mr-6 pl-3 py-2">
+                                <BaseButton text={"Yeniden Puanla"} onClick={()=> setVisible(false)}/>
+                                </span>
+                            </span>
+                        </div>
+                    :
+                    null
+                }
+
             </div>
             <div className="input-section w-full px-4">
                 <div className="mx-auto px-4 text-gray-600">
