@@ -97,22 +97,22 @@ export default function DoctorDetail() {
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                    Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts
-                                    keytar banjo tattooed umami cardigan.
+                                Uluslararası bir beslenme konferansında sunum yapma fırsatı buldum ve çalışmalarımın alanında uzman akademisyenlerle paylaştım.
+                                 Bu sunumum, katılımcıların  araştırma çalışmalarının tanınmasına katkı sağladı.
                                 </p>
                             </div>
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                    Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts
-                                    keytar banjo tattooed umami cardigan.
+                                Hastalarıma bireysel olarak özelleştirilmiş diyet ve beslenme planları sunarken, multidisipliner bir yaklaşım benimsiyorum. 
+                                Diğer sağlık uzmanlarıyla işbirliği içinde çalışarak, hastalarımın tam bir sağlık yolculuğu deneyimi elde etmelerini sağlıyor ve tedavilerin etkinliğini artırıyorum..
                                 </p>
                             </div>
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                    Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts
-                                    keytar banjo tattooed umami cardigan.
+                                Beslenme ve sağlık alanındaki son araştırmaları yakından takip ediyor ve bu alanda bilimsel makaleler yayınlıyorum. 
+                                Yaptığım araştırmalar, beslenme bilimine yeni perspektifler getiriyor ve sağlık alanındaki güncel bilgileri pratiğe aktarma konusunda önemli bir katkı sağlıyorum.
                                 </p>
                             </div>
                         </div>
