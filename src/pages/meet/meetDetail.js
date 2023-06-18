@@ -7,6 +7,16 @@ import { Link, useParams } from "react-router-dom";
 import { Rating } from "primereact/rating";
 import { toast } from "react-toastify";
 import moment from "moment";
+import TextareaFor from "../../shared/form/textAreaFor";
+import LabelFor from "../../shared/form/labelFor";
+import ValidationFor from "../../shared/form/validationFor";
+import { useForm } from "react-hook-form";
+import { Message } from 'primereact/message';
+import manUser from "../../assets/images/man-user.jpg";
+import womanUser from "../../assets/images/woman-user.jpg";
+import manDoctor from "../../assets/images/male-doctor.jpg";
+import womanDoctor from "../../assets/images/female-doctor.jpg";
+
 
 export default function MeetDetail() {
     const dispatch = useDispatch();
@@ -213,7 +223,7 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                {diagnosisReportTime < currentDate.toJSON() 
+                {diagnosisReportTime < currentDate.toJSON()
                 ? (role == "PATIENT" ? (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
@@ -301,10 +311,31 @@ export default function MeetDetail() {
                                 <a href={item.href}>
                                     <div>
                                         <div className="justify-between sm:flex">
-                                            <img src="https://tecdn.b-cdn.net/img/new/avatars/2.webp" className="w-16 rounded-full" alt="Avatar" />
+                                            <img src={ (item.user.gender == "MAN"
+                                                    ?
+                                                            (item.user.role == "DOCTOR"
+                                                                    ?
+                                                                        manDoctor
+                                                                    :
+                                                                        manUser
+                                                            )
+                                                    :
+                                                            (item.user.role == "DOCTOR"
+                                                                    ?
+                                                                        womanDoctor
+                                                                    :
+                                                                        womanUser
+                                                            )
+
+                                                        )
+                                            } className="w-16 rounded-full" alt="Avatar" />
                                             <div className="flex-1 ml-3">
                                                 <h3 className="text-xl font-medium">{item.user.name + " " + item.user.surname}</h3>
                                                 <p className="text-gray-500 mt-2 pr-2">{item.comment}</p>
+                                            </div>
+                                            <div className="justify-content-end sm:flex">
+                                                {new Date(item.create_at).toLocaleString()}
+
                                             </div>
                                         </div>
                                     </div>

@@ -11,6 +11,8 @@ import { InfoMessage } from "../../constants/infoMessage";
 import Header from "../../partials/header";
 import { getAllBranch } from "../../store/branchSlice";
 import { getAllDoctors } from "../../store/doctorSlice";
+import womanImg from "../../assets/images/female-doctor.jpg";
+import manImg from "../../assets/images/male-doctor.jpg";
 
 export default function Doctors() {
     const [layout, setLayout] = useState("grid");
@@ -38,8 +40,11 @@ export default function Doctors() {
                 <div className="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                     <img
                         className="w-9  max-w-[240px] shadow-2 border-round"
-                        src={
-                            "https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
+                        src={ (doctor.img_path == "man" ?
+                                manImg
+                        :
+                                womanImg
+                            )
                         }
                         alt={doctor.user.name}
                     />
@@ -88,7 +93,12 @@ export default function Doctors() {
                         </div>
                         <img
                             className="w-9 max-w-[250px] shadow-2 border-round"
-                            src="https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
+                            src={ (doctor.img_path == "man" ?
+                                    manImg
+                                    :
+                                    womanImg
+                                    )
+                            }
                             alt={doctor.user.name}
                         />
                         <div className="text-md">{doctor.description.substring(0, 120) + "..."}</div>
