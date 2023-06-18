@@ -13,6 +13,7 @@ import TextboxFor from "../../shared/form/textboxFor";
 import ValidationFor from "../../shared/form/validationFor";
 import { registerPatient, registerDoctor } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function Register() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
@@ -46,6 +47,7 @@ export default function Register() {
         dispatch(registerPatient(newPatient));
     };
     const onRegisterDoctor = (data) => {
+
         const newDoctor = {
             phoneNumber: data.phoneNumber,
             title: "prof. Dr",
@@ -198,7 +200,7 @@ export default function Register() {
                                     <TextboxFor
                                         placeholder="Soyadınızı girin"
                                         type="text"
-                                        register={register("name", { required: true })}
+                                        register={register("surname", { required: true })}
                                         errors={errors}
                                     />
                                     <ValidationFor name="surname" title="Soyadı alanını boş bırakmayınız." errors={errors} />
@@ -257,6 +259,9 @@ export default function Register() {
                                         errors={errors}
                                     />
                                     <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errors} />
+                                </fieldset>
+                                <fieldset>
+                                    <input type="checkbox" {...register("myCheckbox")} />
                                 </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
