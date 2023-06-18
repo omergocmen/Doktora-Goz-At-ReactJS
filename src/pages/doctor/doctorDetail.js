@@ -1,16 +1,20 @@
-import { Button } from 'primereact/button';
+import { Button } from "primereact/button";
 import { Rating } from "primereact/rating";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { InfoMessage } from "../../constants/infoMessage";
 import LinkButton from "../../shared/components/linkButton";
 import { getDoctorById } from "../../store/doctorSlice";
+import BaseButton from "../../shared/components/baseButton";
+import { toast } from "react-toastify";
+import JwtHelper from "../../helpers/jwtHelper";
 
 export default function DoctorDetail() {
+    const navigate = useNavigate();
     const tooltipOptions = {
-        position: 'bottom'
-      };
+        position: "bottom",
+    };
     const education = [
         {
             text: "Lisans",
@@ -32,8 +36,17 @@ export default function DoctorDetail() {
         dispatch(getDoctorById(params.id));
     }, []);
 
+    const navigatePayment = () => {
+        const isAuthentication = new JwtHelper().verifyAccessToken();
+        if(isAuthentication){
+        navigate("/home/payment/" + params.id);
+        }else{
+            toast.warning("Lütfen Önce Giriş Yapınız")
+        }
+    };
+
     return (
-        <section className="text-gray-700 body-font shadow-lg mt-10 overflow-hidden bg-white">
+        <section className="text-gray-700 body-font shadow-lg mt-10 min-w-[500px] overflow-hidden bg-white">
             <div className="container px-5 py-24 mx-auto">
                 <div className="justify-between text-left w-auto mx-auto flex flex-col md:flex-row">
                     <div className="responsive-width w-full bg-gray-100 px-20">
@@ -60,11 +73,13 @@ export default function DoctorDetail() {
                                                         className="bi bi-bank"
                                                         viewBox="0 0 16 16"
                                                     >
-                                                        <path d="M8 .95 14.61 4h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 
+                                                        <path
+                                                            d="M8 .95 14.61 4h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 
                                                         .485.379l.5 2A.5.5 0 0 1 15.5 17H.5a.5.5 0 0 1-.485-.621l.5-2A.5.5 0 0 1 1 
                                                         14V7H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 4h.89L8 .95zM3.776 4h8.447L8 2.05 3.776 4zM2 
                                                         7v7h1V7H2zm2 0v7h2.5V7H4zm3.5 0v7h1V7h-1zm2 0v7H12V7H9.5zM13 7v7h1V7h-1zm2-1V5H1v1h14zm-.39 
-                                                        9H1.39l-.25 1h13.72l-.25-1z" />
+                                                        9H1.39l-.25 1h13.72l-.25-1z"
+                                                        />
                                                     </svg>
                                                 </div>
                                             </div>
@@ -97,32 +112,40 @@ export default function DoctorDetail() {
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                Uluslararası bir beslenme konferansında sunum yapma fırsatı buldum ve çalışmalarımın alanında uzman akademisyenlerle paylaştım.
-                                 Bu sunumum, katılımcıların  araştırma çalışmalarının tanınmasına katkı sağladı.
+                                    Uluslararası bir beslenme konferansında sunum yapma fırsatı buldum ve çalışmalarımın alanında uzman
+                                    akademisyenlerle paylaştım. Bu sunumum, katılımcıların araştırma çalışmalarının tanınmasına katkı sağladı.
                                 </p>
                             </div>
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                Hastalarıma bireysel olarak özelleştirilmiş diyet ve beslenme planları sunarken, multidisipliner bir yaklaşım benimsiyorum. 
-                                Diğer sağlık uzmanlarıyla işbirliği içinde çalışarak, hastalarımın tam bir sağlık yolculuğu deneyimi elde etmelerini sağlıyor ve tedavilerin etkinliğini artırıyorum..
+                                    Hastalarıma bireysel olarak özelleştirilmiş diyet ve beslenme planları sunarken, multidisipliner bir yaklaşım
+                                    benimsiyorum. Diğer sağlık uzmanlarıyla işbirliği içinde çalışarak, hastalarımın tam bir sağlık yolculuğu deneyimi
+                                    elde etmelerini sağlıyor ve tedavilerin etkinliğini artırıyorum..
                                 </p>
                             </div>
                             <div className="flex text-left">
                                 <i className="pi pi-check" style={{ fontSize: "2rem" }} />
                                 <p className="mx-4">
-                                Beslenme ve sağlık alanındaki son araştırmaları yakından takip ediyor ve bu alanda bilimsel makaleler yayınlıyorum. 
-                                Yaptığım araştırmalar, beslenme bilimine yeni perspektifler getiriyor ve sağlık alanındaki güncel bilgileri pratiğe aktarma konusunda önemli bir katkı sağlıyorum.
+                                    Beslenme ve sağlık alanındaki son araştırmaları yakından takip ediyor ve bu alanda bilimsel makaleler
+                                    yayınlıyorum. Yaptığım araştırmalar, beslenme bilimine yeni perspektifler getiriyor ve sağlık alanındaki güncel
+                                    bilgileri pratiğe aktarma konusunda önemli bir katkı sağlıyorum.
                                 </p>
                             </div>
                         </div>
                         <div className="flex mt-10">
-                            <LinkButton href={"/home/payment/"+params.id} className="w-[300px] text-center" text={"Randevu Talebinde Bulun"} />
+                            <div className="flex mt-[12px]">
+                                <BaseButton
+                                    className="w-[300px] text-center"
+                                    onClick={() => navigatePayment()}
+                                    text={"Randevu Talebinde Bulun"}
+                                ></BaseButton>
+                            </div>
                             <Button
-                            icon="pi pi-info-circle"
-                            tooltip={InfoMessage.loginneededinfo}
-                            tooltipOptions={tooltipOptions}
-                            className='button-tooltip'
+                                icon="pi pi-info-circle"
+                                tooltip={InfoMessage.loginneededinfo}
+                                tooltipOptions={tooltipOptions}
+                                className="button-tooltip h-[40px]"
                             />
                         </div>
                     </div>

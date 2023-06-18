@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import loginimg from "../../assets/images/login.jpg";
-import { InfoMessage } from '../../constants/infoMessage';
 import { Messages } from "../../constants/messages";
 import JwtHelper from "../../helpers/jwtHelper";
 import BaseButton from "../../shared/components/baseButton";
@@ -17,14 +16,8 @@ import { login } from "../../store/authSlice";
 
 export default function Login() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
-
+    
     const navigate = useNavigate();
-
-    const tooltipOptions = {
-        position: 'bottom'
-        };
-        
-
     const {
         register,
         handleSubmit,
@@ -105,13 +98,6 @@ export default function Login() {
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/register") }>Kayıt ol</span>
-                            <div>
-                            <Button
-                            icon="pi pi-info-circle"
-                            tooltip={InfoMessage.logininfo}
-                            tooltipOptions={tooltipOptions}
-                            className='button-tooltip'
-                            /></div>
                         </form>
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
@@ -147,13 +133,6 @@ export default function Login() {
                             <BaseButton text={"Giriş Yap"} />
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/register") }>Kayıt ol</span>
-                            <div>
-                            <Button
-                            icon="pi pi-info-circle"
-                            tooltip={InfoMessage.logininfo}
-                            tooltipOptions={tooltipOptions}
-                            className='button-tooltip'
-                            /></div>
                         </form>
                     </TabPanel>
                 </TabView>

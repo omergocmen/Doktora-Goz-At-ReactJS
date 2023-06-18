@@ -7,6 +7,11 @@ import { Link, useParams } from "react-router-dom";
 import { Rating } from "primereact/rating";
 import { toast } from "react-toastify";
 import moment from "moment";
+import TextareaFor from "../../shared/form/textAreaFor";
+import LabelFor from "../../shared/form/labelFor";
+import ValidationFor from "../../shared/form/validationFor";
+import { useForm } from "react-hook-form";
+import { Message } from 'primereact/message';
 
 export default function MeetDetail() {
     const dispatch = useDispatch();
@@ -17,14 +22,22 @@ export default function MeetDetail() {
     const meet = useSelector((state) => state.meet.meet);
     const comments = useSelector((state) => state.meet.getMeetingComments);
     const commentMessage = useRef();
-    const diagnosisReport = useRef();
 
     const role = localStorage.getItem("userType");
     const [visible, setVisible] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
 
     let currentDate = new Date();
     const timeZone = 3;
     currentDate.setTime(currentDate.getTime() + timeZone * 60 * 60 * 1000);
+
 
     useEffect(() => {
         setVisible(meet.isVoted ? true : false);
@@ -56,9 +69,10 @@ export default function MeetDetail() {
         toast.warning("Toplantı Henüz başlamadı");
     };
 
-    const setDiagnosisReport = () => {
+    const setDiagnosisReport = (data) => {
+        console.log(data);
         const newDiagnosisReport = {
-            diagnosisReport: diagnosisReport.current.value,
+            diagnosisReport: data.description,
         };
         dispatch(
             complateMeet({
@@ -213,8 +227,8 @@ export default function MeetDetail() {
                         </div>
                     </div>
                 </div>
-                {diagnosisReportTime < currentDate.toJSON() 
-                ? (role == "PATIENT" ? (
+                {diagnosisReportTime < currentDate.toJSON() ? (
+                    role == "PATIENT" ? (
                         <div className="flex mb-4 px-4">
                             <span className="flex items-center">
                                 <span className="text-bold">Doktorun Raporu: </span>
@@ -226,25 +240,12 @@ export default function MeetDetail() {
                             </span>
                         </div>
                     ) : (
-                        <div className="flex mb-4 px-4">
-                            <span className="flex items-center">
-                                <span className="text-bold">Doktorun Raporu:</span>
-                            </span>
-                            <span className="flex ml-3 pl-3 py-2">
+                        <div className="flex">
+                            <span className="flex ml-4 mt-4">
                                 {!meet.diagnosis_report ? (
-                                    <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-                                        <textarea
-                                            placeholder="Mesajınız..."
-                                            ref={diagnosisReport}
-                                            required
-                                            className="w-full border-2 border-black mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                                        ></textarea>
-                                        <span className="flex ml-3 pl-3 py-2">
-                                            <BaseButton text={"Raporu Gönder"} onClick={setDiagnosisReport} />
-                                        </span>
-                                    </span>
+                                    <BaseButton className="w-[190px]" text={"Teşhis Raporu Oluştur"} onClick={() => setShowModal(true)} />
                                 ) : (
-                                    meet.diagnosis_report
+                                    <Message severity="info" text={"Doktor Raporu: "+meet.diagnosis_report} />
                                 )}
                             </span>
                         </div>
@@ -279,7 +280,7 @@ export default function MeetDetail() {
             </div>
             <div className="input-section w-full px-4">
                 <div className="mx-auto px-4 text-gray-600">
-                    <div className="mt-12 mx-auto">
+                    <div className="mx-auto">
                         <div>
                             <textarea
                                 placeholder="Mesajınız..."
@@ -313,6 +314,29 @@ export default function MeetDetail() {
                         ))}
                     </ul>
                 </section>
+            </div>
+            <div className={`${showModal ? "visible" : "hidden"}`}>
+                <div className="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" />
+                <div className="fixed inset-0  z-50 overflow-hidden flex items-center justify-center sm:px-6">
+                    <form className="bg-white w-[400px] rounded-lg px-10 py-5" onSubmit={handleSubmit(setDiagnosisReport)}>
+                        <i className="pi pi-times cursor-pointer relative left-40" onClick={() => setShowModal(false)} />
+                        <div className="text-left">
+                            <fieldset className="flex flex-col">
+                                <LabelFor name="description" errors={errors}>
+                                    Lütfen Rapor Açıklamasını Giriniz
+                                </LabelFor>
+                                <TextareaFor
+                                    placeholder="Örnek açıklama..."
+                                    type="description"
+                                    register={register("description", { required: true })}
+                                    errors={errors}
+                                />
+                                <ValidationFor name="description" title="Rapor açıklaması alanını boş bırakmayınız." errors={errors} />
+                            </fieldset>
+                        </div>
+                        <BaseButton className="w-full" text={"Raporu Gönder"} />
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ export default function InputDatePickerFor({ type, register, errors,onChange, ..
   const additionalStyle = type === "line" ? "bg-transparent !rounded-none border-t-0 border-l-0 border-r-0 border-b-grey-7 !px-0 py-[6px]" : "";
   return (
       <input
+        min={moment().format("YYYY-MM-DD")}
           {...props}
           {...register}
           id={register.name}

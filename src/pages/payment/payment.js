@@ -11,6 +11,7 @@ import BaseButton from "../../shared/components/baseButton";
 import DropdownListFor from "../../shared/form/dropdownListFor";
 import { useEffect } from "react";
 import { getDoctorAppointmentDates, createAppointment } from "../../store/appointmentSlice";
+import { getDoctorById } from "../../store/doctorSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
@@ -20,6 +21,7 @@ import { useRef } from "react";
 export default function Payment() {
     const dispatch = useDispatch();
     const dates = useSelector((state) => state.appointment.doctorAppointmentDates);
+    const doctor = useSelector((state) => state.doctor.doctor);
     const selectInputRef = useRef();
     const [newAppointment, setNewAppointment] = useState({});
 
@@ -91,6 +93,7 @@ export default function Payment() {
     };
 
     useEffect(() => {
+        dispatch(getDoctorById(params.id));
         dispatch(getDoctorAppointmentDates(params.id));
         const filteredData = dates.filter((obj, index) => {
             const objDate = moment(obj.dateTime).format("DD.MM.YYYY");
@@ -104,7 +107,7 @@ export default function Payment() {
     }, [JSON.stringify(selectedTime)]);
 
     return (
-        <div className="w-3/5 mx-auto my-[100px] min-w-[700px] rounded-2xl h:[900px] lg:h-[800px] shadow-2xl p-[105px]">
+        <div className="w-3/5 mx-auto my-[100px] min-w-[700px] rounded-2xl h:[900px] lg:h-[850px] shadow-2xl p-[105px]">
             <Steps activeIndex={activePage} model={stepItems} />
             {activePage == 0 ? (
                 <form className="w-3/5 mx-auto" onSubmit={handleSubmit(onStepSubmitNext)}>
@@ -209,6 +212,13 @@ export default function Payment() {
                                 </fieldset>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between">
+                            <p>Tutar : </p>
+                            <p className="semibold">{doctor.price}₺</p>
+                        </div>
+                        <hr />
                     </div>
                     <button
                         type="button"

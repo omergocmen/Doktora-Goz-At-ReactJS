@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import BaseButton from "../../shared/components/baseButton";
+import LinkIcon from "../../shared/components/linkIcon";
 import { getAllMeeting, getMeetingById, getMeetingComments } from "../../store/meetSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import moment from "moment";
@@ -25,6 +24,7 @@ export default function Meets() {
                     ...item,
                     doctorName: item.appointment.doctor.user.name + " " + item.appointment.doctor.user.surname,
                     state: getState(item.state),
+                    date_time : moment(item.appointment.date_time).format("DD.MM.YYYY / HH:mm")
                 };
             })
         );
@@ -45,9 +45,7 @@ export default function Meets() {
     const settingTemplate = (option) => {
         return (
             <>
-                <Link to={"/home/meetdetail/" + option.id}>
-                    <i className="pi pi-arrow-circle-right text-xl text-blue-700" />
-                </Link>
+                <LinkIcon to={"/home/meetdetail/" + option.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />
             </>
         );
     };
@@ -99,8 +97,6 @@ export default function Meets() {
     const exportColumns = [
         { title: "Id", dataKey: "id" },
         { title: "Doktor Adı", dataKey: "doctorName" },
-        { title: "Şikayet Sebebi", dataKey: "patient_note" },
-        { title: "Maliyet", dataKey: "date_time" },
         { title: "Durum", dataKey: "state" },
     ];
     const exportPdf = () => {
@@ -182,11 +178,8 @@ export default function Meets() {
                 sortable
             />
             <Column
-                field="appointment.date_time"
+                field="date_time"
                 header="Görüşme Tarihi"
-                body={(item) => {
-                    return moment.utc(item.appointment.date_time).format("DD.MM.YYYY / HH:mm");
-                }}
                 sortable
             />
             <Column filter filterField="appointment.patient_note" field="appointment.patient_note" header="Hasta Notu" sortable />

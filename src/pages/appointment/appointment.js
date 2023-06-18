@@ -43,7 +43,8 @@ export default function Appointment() {
                     ...item,
                     doctorName: item.doctor.user.name + " " + item.doctor.user.surname,
                     state: getState(item.state),
-                    branchName:item.doctor.branch.name
+                    branchName: item.doctor.branch.name,
+                    date_time: moment(item.date_time).format("YYYY/MM/DD"),
                 };
             })
         );
@@ -158,15 +159,17 @@ export default function Appointment() {
             setVisible(true);
         }
     };
-    const ApproveAppointmentFunc=(id)=>{
-        dispatch(approveAppointment(id))
-    }
+    const ApproveAppointmentFunc = (id) => {
+        dispatch(approveAppointment(id));
+    };
     const settingTemplate = (option) => {
         return (
             <>
                 <IconButton className="dark self-baseline pi pi-times" onClick={() => showModal(option)} />
                 {option.meet && <LinkIcon to={"/home/meetdetail/" + option.meet.id} className="dark mx-2 self-baseline pi pi-arrow-circle-right" />}
-                {option.state=="KABUL BEKLİYOR" && localStorage.getItem("userType")=="DOCTOR" && <IconButton onClick={()=>ApproveAppointmentFunc(option.id)} className="dark mx-2 self-baseline pi pi-check" />}
+                {option.state == "KABUL BEKLİYOR" && localStorage.getItem("userType") == "DOCTOR" && (
+                    <IconButton onClick={() => ApproveAppointmentFunc(option.id)} className="dark mx-2 self-baseline pi pi-check" />
+                )}
             </>
         );
     };
@@ -276,27 +279,14 @@ export default function Appointment() {
                 tableStyle={{ margin: "auto", minWidth: "50rem" }}
                 filters={filters}
                 filterDisplay="menu"
-                globalFilterFields={[
-                    "doctorName",
-                    "state",
-                    "patient_note",
-                    "branchName"
-                ]}
+                globalFilterFields={["doctorName", "state", "patient_note", "branchName"]}
                 emptyMessage="Arıza kaydı bulunamadı"
             >
                 <Column filter field="doctorName" filterField="doctorName" header="Doktor" sortable />
                 <Column filter field="branchName" filterField="branchName" header="Doktor Uzmanlık Alanı" sortable />
                 <Column field="patient_note" header="Şikayet Sebebi" sortable />
                 <Column field="state" filterElement={stateFilterTemplate} body={statebodytemplate} header="Durum" filter />
-                <Column
-                    filter
-                    field="date_time"
-                    header="Randevu Tarihi"
-                    body={(item) => {
-                        return moment(item.date_time).format("DD.MM.YYYY");
-                    }}
-                    sortable
-                />
+                <Column field="date_time" header="Randevu Tarihi" sortable />
                 <Column header="Görüşme Detayı" body={settingTemplate} exportable={false} style={{ minWidth: "12rem" }}></Column>
             </DataTable>
             <div className={`${visible ? "visible" : "hidden"}`}>
