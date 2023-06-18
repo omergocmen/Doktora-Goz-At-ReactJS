@@ -12,9 +12,9 @@ import LabelFor from "../../shared/form/labelFor";
 import ValidationFor from "../../shared/form/validationFor";
 import { useForm } from "react-hook-form";
 import { Message } from 'primereact/message';
-import manUser from "../../assets/images/man-user.jpg";
-import womanUser from "../../assets/images/woman-user.jpg";
-import manDoctor from "../../assets/images/male-doctor.jpg";
+import manUser from "../../assets/images/user1.jpg";
+import womanUser from "../../assets/images/user1.jpg";
+import manDoctor from "../../assets/images/user4.jpg";
 import womanDoctor from "../../assets/images/female-doctor.jpg";
 
 
