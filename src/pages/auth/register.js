@@ -12,13 +12,17 @@ import LabelFor from "../../shared/form/labelFor";
 import TextboxFor from "../../shared/form/textboxFor";
 import ValidationFor from "../../shared/form/validationFor";
 import { registerPatient, registerDoctor } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllBranch} from "../../store/branchSlice";
+import TextareaFor from "../../shared/form/textAreaFor";
+import { toast } from "react-toastify";
 
 export default function Register() {
     const isAuthentication = new JwtHelper().verifyAccessToken();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const branch = useSelector((state) => state.branch.branch);
 
     const {
         control,
@@ -27,6 +31,11 @@ export default function Register() {
         formState: { errors },
     } = useForm();
     const onRegisterPatient = (data) => {
+        console.log(data)
+        if(!data.myCheckbox){
+            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.")
+            return;
+        }
         const newPatient = {
             name: data.name,
             surname: data.surname,
@@ -46,18 +55,23 @@ export default function Register() {
         dispatch(registerPatient(newPatient));
     };
     const onRegisterDoctor = (data) => {
+        console.log(data)
+        if(!data.myCheckbox){
+            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.")
+            return;
+        }
         const newDoctor = {
             phoneNumber: data.phoneNumber,
             title: "prof. Dr",
             education: "Hacettepe Tıp",
-            description: "iyi bir doktorum",
-            price: 20.1,
+            price: 200.1,
             birthDate: "2001-06-29",
-            branch: 1,
             address: "Petrolis Mahallesi Gülistan sokak no 17",
             city: "Istanbul",
             country: "Kartal",
             zipCode: "34862",
+            branch: data.branch.value,
+            description: data.description,
             name: data.name,
             surname: data.surname,
             gender: data.gender.value == 1 ? "MAN" : "WOMAN",
@@ -68,6 +82,7 @@ export default function Register() {
     };
 
     useEffect(() => {
+        dispatch(getAllBranch())
         if (isAuthentication) {
             navigate("/home");
         }
@@ -165,8 +180,14 @@ export default function Register() {
                                     />
                                     <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errors} />
                                 </fieldset>
+                                <fieldset>
+                                    <input type="checkbox" {...register("myCheckbox")} />
+                                    {/*<span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>*/}
+                                    {/*<br/>*/}
+                                </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
+
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/login")}>
                                 Zaten üye misin?
@@ -198,7 +219,7 @@ export default function Register() {
                                     <TextboxFor
                                         placeholder="Soyadınızı girin"
                                         type="text"
-                                        register={register("name", { required: true })}
+                                        register={register("surname", { required: true })}
                                         errors={errors}
                                     />
                                     <ValidationFor name="surname" title="Soyadı alanını boş bırakmayınız." errors={errors} />
@@ -258,8 +279,47 @@ export default function Register() {
                                     />
                                     <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errors} />
                                 </fieldset>
+                                <fieldset className="flex flex-col">
+                                    <LabelFor name="branch" errors={errors}>
+                                        Branş
+                                    </LabelFor>
+                                    <DropdownListFor
+                                        searchPlaceholder={"Seçiniz"}
+                                        name="branch"
+                                        register={register("branch")}
+                                        data={branch.map((item, index) => {
+                                            return {
+                                                value: item.id,
+                                                label: item.name,
+                                            };
+                                        })}
+                                        control={control}
+                                        errors={errors}
+                                    />
+                                    <ValidationFor name="branch" title="Lütfen branşınızı belirleyiniz" errors={errors} />
+                                </fieldset>
+                                <fieldset className="flex flex-col">
+                                    <LabelFor name="description" errors={errors}>
+                                        Açıklama
+                                    </LabelFor>
+
+                                    <TextareaFor
+                                        placeholder="Örnek açıklama..."
+                                        type="description"
+                                        register={register("description", { required: true })}
+                                        errors={errors}
+                                    />
+                                    <ValidationFor name="description" title={"Açıklama boş geçilemez"} errors={errors} />
+                                </fieldset>
+                                <fieldset>
+                                    <input type="checkbox" {...register("myCheckbox")} />
+                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
+                                    <br/>
+                                </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
+                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
+                            <br/>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/login")}>
                                 Zaten üye misin?
