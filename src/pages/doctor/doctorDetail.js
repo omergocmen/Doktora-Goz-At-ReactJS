@@ -9,6 +9,8 @@ import { getDoctorById } from "../../store/doctorSlice";
 import BaseButton from "../../shared/components/baseButton";
 import { toast } from "react-toastify";
 import JwtHelper from "../../helpers/jwtHelper";
+import manImg from "../../assets/images/male-doctor.jpg";
+import womanImg from "../../assets/images/female-doctor.jpg";
 
 export default function DoctorDetail() {
     const navigate = useNavigate();
@@ -53,8 +55,11 @@ export default function DoctorDetail() {
                         <img
                             alt="ecommerce"
                             className="h-[300px] min-w-[100px] circle object-center rounded-full mt-12 border border-gray-200"
-                            src={
-                                "https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
+                            src={ (doctor.img_path == "man" ?
+                                    manImg
+                                    :
+                                    womanImg
+                                    )
                             }
                         />
                         <div className="mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-5">
