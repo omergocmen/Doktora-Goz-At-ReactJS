@@ -38,12 +38,12 @@ export const complateMeet = createAsyncThunk("meeting/getmeetingbyid/complate", 
         });
 });
 
-export const sendComment = createAsyncThunk("comment/getmeetingbyid/create", async ({id, data},thunkAPI) => {
+export const sendComment = createAsyncThunk("comment/getmeetingbyid/create", async ({id, data}) => {
     return baseAxios
         .post("comment/"+id+"/create",data)
         .then((response) => {
             toast.success(Messages.answeradded);
-            thunkAPI.dispatch(getAllMeeting())
+            window.location.reload();
             return response.data;
         })
         .catch((err) => {

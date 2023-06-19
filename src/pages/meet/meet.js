@@ -24,7 +24,7 @@ export default function Meets() {
                     ...item,
                     doctorName: item.appointment.doctor.user.name + " " + item.appointment.doctor.user.surname,
                     state: getState(item.state),
-                    date_time : moment(item.appointment.date_time).format("DD.MM.YYYY / HH:mm")
+                    date_time : moment.utc(item.appointment.date_time).format("DD.MM.YYYY / HH:mm")
                 };
             })
         );

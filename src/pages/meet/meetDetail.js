@@ -11,7 +11,7 @@ import TextareaFor from "../../shared/form/textAreaFor";
 import LabelFor from "../../shared/form/labelFor";
 import ValidationFor from "../../shared/form/validationFor";
 import { useForm } from "react-hook-form";
-import { Message } from 'primereact/message';
+import { Message } from "primereact/message";
 import manUser from "../../assets/images/user1.jpg";
 import womanUser from "../../assets/images/user1.jpg";
 import manDoctor from "../../assets/images/user4.jpg";
@@ -35,11 +35,9 @@ export default function MeetDetail() {
         formState: { errors },
     } = useForm();
 
-
     let currentDate = new Date();
     const timeZone = 3;
     currentDate.setTime(currentDate.getTime() + timeZone * 60 * 60 * 1000);
-
 
     useEffect(() => {
         setVisible(meet.isVoted ? true : false);
@@ -237,7 +235,10 @@ export default function MeetDetail() {
                             </span>
                             <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                 <span className="flex ml-3 pl-3 py-2">
-                                    {meet.diagnosis_report ? <Message severity="info" text={"Doktor Raporu: "+meet.diagnosis_report} />: "Doktor Henüz Rapor Eklemedi!"}
+                                    <Message
+                                        severity="info"
+                                        text={"Doktor Raporu: " + meet.diagnosis_report ? meet.diagnosis_report : "Doktor Henüz Rapor Eklemedi"}
+                                    />
                                 </span>
                             </span>
                         </div>
@@ -247,7 +248,7 @@ export default function MeetDetail() {
                                 {!meet.diagnosis_report ? (
                                     <BaseButton className="w-[190px]" text={"Teşhis Raporu Oluştur"} onClick={() => setShowModal(true)} />
                                 ) : (
-                                    <Message severity="info" text={"Doktor Raporu: "+meet.diagnosis_report} />
+                                    <Message severity="info" text={"Doktor Raporu: " + meet.diagnosis_report} />
                                 )}
                             </span>
                         </div>
@@ -304,32 +305,24 @@ export default function MeetDetail() {
                                 <a href={item.href}>
                                     <div>
                                         <div className="justify-between sm:flex">
-                                            <img src={ (item.user.gender == "MAN"
-                                                    ?
-                                                            (item.user.role == "DOCTOR"
-                                                                    ?
-                                                                        manDoctor
-                                                                    :
-                                                                        manUser
-                                                            )
-                                                    :
-                                                            (item.user.role == "DOCTOR"
-                                                                    ?
-                                                                        womanDoctor
-                                                                    :
-                                                                        womanUser
-                                                            )
-
-                                                        )
-                                            } className="w-16 rounded-full" alt="Avatar" />
+                                            <img
+                                                src={
+                                                    item.user.gender == "MAN"
+                                                        ? item.user.role == "DOCTOR"
+                                                            ? manDoctor
+                                                            : manUser
+                                                        : item.user.role == "DOCTOR"
+                                                        ? womanDoctor
+                                                        : womanUser
+                                                }
+                                                className="w-16 rounded-full"
+                                                alt="Avatar"
+                                            />
                                             <div className="flex-1 ml-3">
                                                 <h3 className="text-xl font-medium">{item.user.name + " " + item.user.surname}</h3>
                                                 <p className="text-gray-500 mt-2 pr-2">{item.comment}</p>
                                             </div>
-                                            <div className="justify-content-end sm:flex">
-                                                {new Date(item.create_at).toLocaleString()}
-
-                                            </div>
+                                            <div className="justify-content-end sm:flex">{new Date(item.create_at).toLocaleString()}</div>
                                         </div>
                                     </div>
                                 </a>
