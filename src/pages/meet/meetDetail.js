@@ -237,7 +237,7 @@ export default function MeetDetail() {
                             </span>
                             <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                 <span className="flex ml-3 pl-3 py-2">
-                                    {meet.diagnosis_report ? meet.diagnosis_report : "Doktor Henüz Rapor Eklemedi!"}
+                                    {meet.diagnosis_report ? <Message severity="info" text={"Doktor Raporu: "+meet.diagnosis_report} />: "Doktor Henüz Rapor Eklemedi!"}
                                 </span>
                             </span>
                         </div>
