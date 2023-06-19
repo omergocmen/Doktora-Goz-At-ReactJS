@@ -34,6 +34,7 @@ export const rejectAppointment = createAsyncThunk("appointment/appointmentid/rej
         .post("appointment/" + id + "/reject", data)
         .then((response) => {
             toast.success(Messages.meetingdeclined);
+            window.location.reload();
             return response.data;
         })
         .catch((err) => {
@@ -46,6 +47,7 @@ export const cancelAppointment = createAsyncThunk("appointment/appointmentid/can
         .post("appointment/" + id + "/cancel")
         .then((response) => {
             toast.success(Messages.meetingApproved);
+            window.location.reload();
             return response.data;
         })
         .catch((err) => {
@@ -58,6 +60,7 @@ export const approveAppointment = createAsyncThunk("appointment/appointmentid/ap
         .post("appointment/" + id + "/approve")
         .then((response) => {
             toast.success(Messages.meetingApproved);
+            window.location.reload();
             return response.data;
         })
         .catch((err) => {
