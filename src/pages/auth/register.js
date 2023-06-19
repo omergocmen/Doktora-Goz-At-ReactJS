@@ -12,13 +12,12 @@ import LabelFor from "../../shared/form/labelFor";
 import TextboxFor from "../../shared/form/textboxFor";
 import ValidationFor from "../../shared/form/validationFor";
 import { registerPatient, registerDoctor } from "../../store/authSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {getAllBranch} from "../../store/branchSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBranch } from "../../store/branchSlice";
 import TextareaFor from "../../shared/form/textAreaFor";
 import { toast } from "react-toastify";
 
 export default function Register() {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const branch = useSelector((state) => state.branch.branch);
@@ -29,12 +28,17 @@ export default function Register() {
         handleSubmit,
         formState: { errors },
     } = useForm();
-
+    const {
+        register: registerAttribute,
+        handleSubmit: handleSubmitAttribute,
+        control: controlAttribute,
+        formState: { errors: errorsAttribute },
+    } = useForm();
 
     const onRegisterPatient = (data) => {
         console.log(data);
-        if(!data.myCheckbox){
-            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.")
+        if (!data.myCheckbox) {
+            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.");
             return;
         }
         const newPatient = {
@@ -53,12 +57,12 @@ export default function Register() {
             country: "Esenler",
             zipCode: "34245",
         };
-        dispatch(registerPatient(newPatient))
+        dispatch(registerPatient(newPatient));
     };
     const onRegisterDoctor = (data) => {
-        console.log(data)
-        if(!data.myCheckbox){
-            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.")
+        console.log(data);
+        if (!data.myCheckbox) {
+            toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.");
             return;
         }
         const newDoctor = {
@@ -79,11 +83,11 @@ export default function Register() {
             email: data.email,
             password: data.password,
         };
-        dispatch(registerDoctor(newDoctor))
+        dispatch(registerDoctor(newDoctor));
     };
 
     useEffect(() => {
-        dispatch(getAllBranch())
+        dispatch(getAllBranch());
     }, []);
 
     return (
@@ -95,77 +99,77 @@ export default function Register() {
                 <TabView>
                     <TabPanel header="Hasta" leftIcon="pi pi-user mr-2">
                         <Heading text="Hasta Üyeliği" />
-                        <form className="bg-white w-[300px] mb-60" onSubmit={handleSubmit(onRegisterPatient)}>
+                        <form className="bg-white w-[300px] mb-60" onSubmit={handleSubmitAttribute(onRegisterPatient)}>
                             <div className="text-left">
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="name" errors={errors}>
+                                    <LabelFor name="name" errors={errorsAttribute}>
                                         Ad
                                     </LabelFor>
                                     <TextboxFor
                                         placeholder="Adınızı girin"
                                         type="text"
-                                        register={register("name", { required: true })}
-                                        errors={errors}
+                                        register={registerAttribute("name", { required: true })}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="name" title="Ad alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="name" title="Ad alanını boş bırakmayınız." errors={errorsAttribute} />
                                 </fieldset>
 
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="surname" errors={errors}>
+                                    <LabelFor name="surname" errors={errorsAttribute}>
                                         Soyadı
                                     </LabelFor>
                                     <TextboxFor
                                         placeholder="Soyadınızı girin"
                                         type="text"
-                                        register={register("surname", { required: true })}
-                                        errors={errors}
+                                        register={registerAttribute("surname", { required: true })}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="surname" title="Soyadı alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="surname" title="Soyadı alanını boş bırakmayınız." errors={errorsAttribute} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="email" errors={errors}>
+                                    <LabelFor name="email" errors={errorsAttribute}>
                                         E-Posta
                                     </LabelFor>
                                     <TextboxFor
                                         placeholder="example@example.com"
                                         type="email"
-                                        register={register("email", { required: true })}
-                                        errors={errors}
+                                        register={registerAttribute("email", { required: true })}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errors} />
+                                    <ValidationFor name="email" title={Messages.emptyemailerror} errors={errorsAttribute} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="password" errors={errors}>
+                                    <LabelFor name="password" errors={errorsAttribute}>
                                         Şifre
                                     </LabelFor>
                                     <TextboxFor
                                         placeholder="example"
                                         type="password"
-                                        register={register("password", { required: true })}
-                                        errors={errors}
+                                        register={registerAttribute("password", { required: true })}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errors} />
+                                    <ValidationFor name="password" title={Messages.emptypassworderror} errors={errorsAttribute} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="phoneNumber" errors={errors}>
+                                    <LabelFor name="phoneNumber" errors={errorsAttribute}>
                                         Telefon No
                                     </LabelFor>
                                     <TextboxFor
                                         placeholder="Telefon numarası girin"
                                         type="text"
-                                        register={register("phoneNumber", { required: true })}
-                                        errors={errors}
+                                        register={registerAttribute("phoneNumber", { required: true })}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="phoneNumber" title="Telefon numarası alanını boş bırakmayınız." errors={errors} />
+                                    <ValidationFor name="phoneNumber" title="Telefon numarası alanını boş bırakmayınız." errors={errorsAttribute} />
                                 </fieldset>
                                 <fieldset className="flex flex-col">
-                                    <LabelFor name="shortName" errors={errors}>
+                                    <LabelFor name="shortName" errors={errorsAttribute}>
                                         Cinsiyet
                                     </LabelFor>
                                     <DropdownListFor
                                         searchPlaceholder={"Seçiniz"}
                                         name="gender"
-                                        register={register("gender")}
+                                        register={registerAttribute("gender")}
                                         data={[{ gender: "Kadın" }, { gender: "Erkek" }].map((item, index) => {
                                             return {
                                                 value: index,
@@ -173,14 +177,18 @@ export default function Register() {
                                             };
                                         })}
                                         control={control}
-                                        errors={errors}
+                                        errors={errorsAttribute}
                                     />
-                                    <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errors} />
+                                    <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errorsAttribute} />
                                 </fieldset>
                                 <fieldset>
-                                    <input type="checkbox" {...register("myCheckbox")} />
-                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
-                                    <br/>
+                                    <input type="checkbox" {...registerAttribute("myCheckbox")} />
+                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">
+                                        <a href={"/policy"} target="_blank">
+                                            <u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u>
+                                        </a>
+                                    </span>
+                                    <br />
                                 </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
@@ -307,8 +315,12 @@ export default function Register() {
                                 </fieldset>
                                 <fieldset>
                                     <input type="checkbox" {...register("myCheckbox")} />
-                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
-                                    <br/>
+                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">
+                                        <a href={"/policy"} target="_blank">
+                                            <u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u>
+                                        </a>{" "}
+                                    </span>
+                                    <br />
                                 </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
