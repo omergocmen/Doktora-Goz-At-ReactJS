@@ -105,7 +105,7 @@ export default function MeetDetail() {
                         <img
                             alt="..."
                             className="max-w-full rounded-lg shadow-lg"
-                            src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                            src="https://images.pexels.com/photos/7176036/pexels-photo-7176036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                         />
                     </div>
                     <div className="w-full md:w-5/12 ml-auto mr-auto px-4">

@@ -23,7 +23,7 @@ export const registerPatient = createAsyncThunk("authentication/register/patient
     return baseAxios.post("authentication/register/patient", data).then((response) => {
         toast.success(Messages.creationsuccess)
         return response.data.data;
-    }).catch(err=>{
+    }).catch(err =>{
         toast.error("Kayıt işlemi Hatalı Lütfen Bilgilerinizin Geçerli Olduğuna Dikkat Edin")
     });
 });
