@@ -175,7 +175,7 @@ export default function Appointment() {
     };
 
     const cancelAppointmentFunc = () => {
-        if (localStorage.getItem("userType") === "Patient") {
+        if (localStorage.getItem("userType") === "PATIENT") {
             dispatch(cancelAppointment(selectedItem.id));
         } else {
             dispatch(rejectAppointment(selectedItem.id));
