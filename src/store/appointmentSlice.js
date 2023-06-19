@@ -25,22 +25,13 @@ export const getAllAppointment = createAsyncThunk("appointment/all", async () =>
         });
 });
 
+export const createAppointment = (data) => {
+    return baseAxios.post("appointment/create", data);
+};
 
-export const createAppointment = createAsyncThunk("appointment/create", async (data) => {
+export const rejectAppointment = createAsyncThunk("appointment/appointmentid/reject", async (id, data) => {
     return baseAxios
-        .post("appointment/create",data)
-        .then((response) => {
-            toast.success(Messages.succesfullycreated);
-            return response.data;
-        })
-        .catch((err) => {
-            toast.error(err.message);
-        });
-});
-
-export const rejectAppointment = createAsyncThunk("appointment/appointmentid/reject", async (id ,data) => {
-    return baseAxios
-        .post("appointment/" + id + "/reject",data)
+        .post("appointment/" + id + "/reject", data)
         .then((response) => {
             toast.success(Messages.meetingdeclined);
             return response.data;
@@ -74,14 +65,12 @@ export const approveAppointment = createAsyncThunk("appointment/appointmentid/ap
         });
 });
 
-
-
 const appointmentSlice = createSlice({
     name: "appointment",
     initialState: {
-        appointments: [] ,
+        appointments: [],
         doctorAppointmentDates: [],
-        activePage:0
+        activePage: 0,
     },
     extraReducers: {
         [getAllAppointment.fulfilled]: (state, action) => {
@@ -93,7 +82,7 @@ const appointmentSlice = createSlice({
             if (action.payload) {
                 state.doctorAppointmentDates = action.payload.data;
             }
-        }
+        },
     },
 });
 

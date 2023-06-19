@@ -17,12 +17,9 @@ import womanUser from "../../assets/images/user1.jpg";
 import manDoctor from "../../assets/images/user4.jpg";
 import womanDoctor from "../../assets/images/female-doctor.jpg";
 
-
 export default function MeetDetail() {
     const dispatch = useDispatch();
-
     const params = useParams();
-
     const [value, setValue] = useState(0);
     const meet = useSelector((state) => state.meet.meet);
     const comments = useSelector((state) => state.meet.getMeetingComments);

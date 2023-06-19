@@ -18,7 +18,6 @@ import TextareaFor from "../../shared/form/textAreaFor";
 import { toast } from "react-toastify";
 
 export default function Register() {
-    const isAuthentication = new JwtHelper().verifyAccessToken();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -30,8 +29,10 @@ export default function Register() {
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+
     const onRegisterPatient = (data) => {
-        console.log(data)
+        console.log(data);
         if(!data.myCheckbox){
             toast.info("Lütfen sözleşmeyi okuyunuz ve kabul ediniz.")
             return;
@@ -52,7 +53,7 @@ export default function Register() {
             country: "Esenler",
             zipCode: "34245",
         };
-        dispatch(registerPatient(newPatient));
+        dispatch(registerPatient(newPatient))
     };
     const onRegisterDoctor = (data) => {
         console.log(data)
@@ -63,7 +64,7 @@ export default function Register() {
         const newDoctor = {
             phoneNumber: data.phoneNumber,
             title: "prof. Dr",
-            education: "Hacettepe Tıp",
+            education: "Hacettepe Tıp Fakültesi",
             price: 200.1,
             birthDate: "2001-06-29",
             address: "Petrolis Mahallesi Gülistan sokak no 17",
@@ -78,18 +79,15 @@ export default function Register() {
             email: data.email,
             password: data.password,
         };
-        dispatch(registerDoctor(newDoctor));
+        dispatch(registerDoctor(newDoctor))
     };
 
     useEffect(() => {
         dispatch(getAllBranch())
-        if (isAuthentication) {
-            navigate("/home");
-        }
-    }, [JSON.stringify(isAuthentication)]);
+    }, []);
 
     return (
-        <div className="h-screen md:flex min-h-[1100px]">
+        <div className="h-screen md:flex min-h-[1150px]">
             <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr justify-around items-center hidden">
                 <img width={"100%"} src={loginimg} alt="login image" />
             </div>
@@ -97,8 +95,7 @@ export default function Register() {
                 <TabView>
                     <TabPanel header="Hasta" leftIcon="pi pi-user mr-2">
                         <Heading text="Hasta Üyeliği" />
-                        <form className="bg-white w-[300px]" onSubmit={handleSubmit(onRegisterPatient)}>
-                            <h1 className="text-gray-800 font-bold text-3xl mb-5">Kaydol</h1>
+                        <form className="bg-white w-[300px] mb-60" onSubmit={handleSubmit(onRegisterPatient)}>
                             <div className="text-left">
                                 <fieldset className="flex flex-col">
                                     <LabelFor name="name" errors={errors}>
@@ -169,7 +166,7 @@ export default function Register() {
                                         searchPlaceholder={"Seçiniz"}
                                         name="gender"
                                         register={register("gender")}
-                                        data={[{ gender: "Kadın" }, { gender: "Erkek" }, { gender: "Belirtmek İstemiyorum" }].map((item, index) => {
+                                        data={[{ gender: "Kadın" }, { gender: "Erkek" }].map((item, index) => {
                                             return {
                                                 value: index,
                                                 label: item.gender,
@@ -182,12 +179,11 @@ export default function Register() {
                                 </fieldset>
                                 <fieldset>
                                     <input type="checkbox" {...register("myCheckbox")} />
-                                    {/*<span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>*/}
-                                    {/*<br/>*/}
+                                    <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
+                                    <br/>
                                 </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
-
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/login")}>
                                 Zaten üye misin?
@@ -196,7 +192,6 @@ export default function Register() {
                     </TabPanel>
                     <TabPanel header="Doktor" leftIcon="pi pi-user-plus mr-2">
                         <Heading text="Doktor Üyeliği" />
-                        <h1 className="text-gray-800 font-bold text-3xl mb-5">Kaydol</h1>
                         <form className="bg-white w-[300px]" onSubmit={handleSubmit(onRegisterDoctor)}>
                             <div className="text-left">
                                 <fieldset className="flex flex-col">
@@ -302,7 +297,6 @@ export default function Register() {
                                     <LabelFor name="description" errors={errors}>
                                         Açıklama
                                     </LabelFor>
-
                                     <TextareaFor
                                         placeholder="Örnek açıklama..."
                                         type="description"
@@ -318,8 +312,6 @@ export default function Register() {
                                 </fieldset>
                             </div>
                             <BaseButton text={"Üye Ol"} />
-                            <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer"><a href={"/policy"} target="_blank"><u>Kullanıcı Kaydolurken Hizmet Politikasını Kabul Etmiş Sayılır.</u></a> </span>
-                            <br/>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer">{Messages.passwordforgot}</span>
                             <span className="text-sm ml-2  hover:text-blue-500 cursor-pointer" onClick={() => navigate("/home/login")}>
                                 Zaten üye misin?

@@ -280,7 +280,7 @@ export default function Appointment() {
                 filters={filters}
                 filterDisplay="menu"
                 globalFilterFields={["doctorName", "state", "patient_note", "branchName"]}
-                emptyMessage="Arıza kaydı bulunamadı"
+                emptyMessage="Randevu bulunamadı"
             >
                 <Column filter field="doctorName" filterField="doctorName" header="Doktor" sortable />
                 <Column filter field="branchName" filterField="branchName" header="Doktor Uzmanlık Alanı" sortable />
