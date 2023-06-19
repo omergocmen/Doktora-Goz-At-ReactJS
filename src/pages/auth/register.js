@@ -176,7 +176,7 @@ export default function Register() {
                                                 label: item.gender,
                                             };
                                         })}
-                                        control={control}
+                                        control={controlAttribute}
                                         errors={errorsAttribute}
                                     />
                                     <ValidationFor name="gender" title="Lütfen cinsiyet belirleyiniz" errors={errorsAttribute} />
