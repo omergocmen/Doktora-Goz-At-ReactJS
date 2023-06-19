@@ -29,7 +29,7 @@ export const createAppointment = (data) => {
     return baseAxios.post("appointment/create", data);
 };
 
-export const rejectAppointment = createAsyncThunk("appointment/appointmentid/reject", async (id, data) => {
+export const rejectAppointment = createAsyncThunk("appointment/appointmentid/reject", async ({id, data}) => {
     return baseAxios
         .post("appointment/" + id + "/reject", data)
         .then((response) => {
@@ -42,9 +42,9 @@ export const rejectAppointment = createAsyncThunk("appointment/appointmentid/rej
         });
 });
 
-export const cancelAppointment = createAsyncThunk("appointment/appointmentid/cancel", async (id) => {
+export const cancelAppointment = createAsyncThunk("appointment/appointmentid/cancel", async ({id,data}) => {
     return baseAxios
-        .post("appointment/" + id + "/cancel")
+        .post("appointment/" + id + "/cancel",data)
         .then((response) => {
             toast.success(Messages.meetingApproved);
             window.location.reload();

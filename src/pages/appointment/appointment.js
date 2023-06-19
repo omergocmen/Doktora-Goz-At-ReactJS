@@ -174,11 +174,25 @@ export default function Appointment() {
         );
     };
 
-    const cancelAppointmentFunc = () => {
+    const cancelAppointmentFunc = (data) => {
         if (localStorage.getItem("userType") === "PATIENT") {
-            dispatch(cancelAppointment(selectedItem.id));
+            dispatch(
+                cancelAppointment({
+                    id: selectedItem.id,
+                    data: {
+                        rejectReason: data.rejectReason,
+                    },
+                })
+            );
         } else {
-            dispatch(rejectAppointment(selectedItem.id));
+            dispatch(
+                rejectAppointment({
+                    id: selectedItem.id,
+                    data: {
+                        rejectReason: data.rejectReason,
+                    },
+                })
+            );
         }
         setVisible(false);
     };
@@ -296,16 +310,16 @@ export default function Appointment() {
                         <i className="pi pi-times cursor-pointer relative left-40" onClick={() => setVisible(false)} />
                         <div className="text-left">
                             <fieldset className="flex flex-col">
-                                <LabelFor name="description" errors={errors}>
+                                <LabelFor name="rejectReason" errors={errors}>
                                     Lütfen Red Açıklaması Giriniz
                                 </LabelFor>
                                 <TextareaFor
                                     placeholder="Örnek açıklama..."
-                                    type="description"
-                                    register={register("description", { required: true })}
+                                    type="rejectReason"
+                                    register={register("rejectReason", { required: true })}
                                     errors={errors}
                                 />
-                                <ValidationFor name="description" title="Red açıklaması alanını boş bırakmayınız." errors={errors} />
+                                <ValidationFor name="rejectReason" title="Red açıklaması alanını boş bırakmayınız." errors={errors} />
                             </fieldset>
                         </div>
                         <BaseButton className="w-full" text={"Reddet"} />
